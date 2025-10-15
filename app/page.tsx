@@ -24,7 +24,14 @@ const Hero3D = dynamic(() => import('@/components/3d/Hero3D'), {
   )
 });
 
-function ServiceCardWrapper({ service, index }: { service: unknown; index: number }) {
+type Service = {
+  icon: string;
+  title: string;
+  description: string;
+  details: string;
+};
+
+function ServiceCardWrapper({ service, index }: { service: Service; index: number }) {
   const { trackInteraction } = useServiceTracking(service.title);
   
   return (
