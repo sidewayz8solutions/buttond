@@ -1,14 +1,18 @@
 "use client";
 
-import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
-import ServiceCard3D from '@/components/3d/ServiceCard3D';
-import GalleryCard3D from '@/components/3d/GalleryCard3D';
-import ParallaxLayers from '@/components/effects/ParallaxLayers';
-import CursorGlow from '@/components/effects/CursorGlow';
-import PersonalizationEngine, { useServiceTracking } from '@/components/personalization/PersonalizationEngine';
-import AnimatedSection from '@/components/ui/AnimatedSection';
+
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+import GalleryCard3D from '@/components/3d/GalleryCard3D';
+import ServiceCard3D from '@/components/3d/ServiceCard3D';
+import CursorGlow from '@/components/effects/CursorGlow';
+import ParallaxLayers from '@/components/effects/ParallaxLayers';
+import PersonalizationEngine, {
+  useServiceTracking,
+} from '@/components/personalization/PersonalizationEngine';
+import AnimatedSection from '@/components/ui/AnimatedSection';
 
 // Dynamically import Hero3D with no SSR
 const Hero3D = dynamic(() => import('@/components/3d/Hero3D'), {
@@ -33,29 +37,29 @@ function ServiceCardWrapper({ service, index }: { service: any; index: number })
 
 export default function Home() {
   const services = [
-    { 
-      icon: "🎨", 
-      title: "Graphic Design", 
-      description: "Visual storytelling through compelling design",
-      details: "From brand identity to print materials, we create stunning visuals that capture your brand's essence and communicate your message with impact. Our designs blend creativity with strategic thinking."
+    {
+      icon: "🎨",
+      title: "Brand Creation",
+      description: "Building powerful brands from the ground up",
+      details: "We craft complete brand identities that resonate with your audience. From logo design to brand guidelines, we create cohesive visual systems that tell your story and set you apart from the competition."
     },
-    { 
-      icon: "🎯", 
-      title: "Brand Strategy", 
-      description: "Strategic positioning and brand development",
-      details: "We help you define your brand's unique position in the market, develop compelling narratives, and create cohesive brand experiences that resonate with your target audience."
+    {
+      icon: "🔄",
+      title: "Rebranding",
+      description: "Transforming existing brands for modern markets",
+      details: "Breathe new life into your brand. We analyze your current position, identify opportunities, and reimagine your brand identity to align with your evolved vision and connect with today's audiences."
     },
-    { 
-      icon: "💻", 
-      title: "Digital Design", 
-      description: "Modern web and digital experiences",
-      details: "Cutting-edge digital solutions that combine beautiful aesthetics with seamless functionality. We create responsive websites, apps, and digital products that users love."
+    {
+      icon: "💻",
+      title: "Website Development",
+      description: "Revolutionary digital experiences that convert",
+      details: "We build stunning, high-performance websites that don't just look amazing—they drive results. From e-commerce to portfolios, we create digital experiences that revolutionize how your customers interact with your brand."
     },
-    { 
-      icon: "✨", 
-      title: "UX/UI", 
-      description: "User-centered design solutions",
-      details: "We design intuitive interfaces that prioritize user needs and business goals. Through research, testing, and iteration, we create experiences that are both beautiful and functional."
+    {
+      icon: "🚀",
+      title: "Digital Strategy",
+      description: "Complete digital transformation solutions",
+      details: "We help companies revolutionize their entire digital presence. From strategy to execution, we provide comprehensive solutions that modernize your brand and position you for growth in the digital age."
     },
   ];
 
@@ -91,12 +95,12 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="font-script text-2xl neon-text-subtle">button'd</div>
+            <div className="font-script text-2xl neon-text-subtle">Button&apos;d</div>
             <div className="hidden md:flex space-x-8">
               <a href="#hero" className="nav-link">Home</a>
               <a href="#services" className="nav-link">Services</a>
               <a href="#about" className="nav-link">About</a>
-              <a href="#gallery" className="nav-link">Gallery</a>
+              <a href="#gallery" className="nav-link">Our Work</a>
               <a href="#contact" className="nav-link">Contact</a>
             </div>
           </div>
@@ -143,10 +147,10 @@ export default function Home() {
           <div className="max-w-7xl mx-auto">
             <AnimatedSection>
               <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 neon-text">
-                Services
+                Our Services
               </h2>
               <p className="text-center text-purple-200/70 text-lg mb-20 max-w-2xl mx-auto">
-                Comprehensive design solutions tailored to your brand's unique needs
+                We revolutionize companies through strategic branding and cutting-edge web development
               </p>
             </AnimatedSection>
 
@@ -175,19 +179,25 @@ export default function Home() {
               <div className="neo-card glass-card rounded-3xl p-8 md:p-12 border border-purple-400/20">
                 <div className="space-y-6 text-lg text-purple-100/80 leading-relaxed">
                   <p>
-                    I'm <span className="text-purple-300 font-semibold">Benjamin Shirley</span>, 
-                    American born creative from the state of Louisiana. After my travels took me 
-                    far and wide I have found myself back. I now reside down in New Orleans or 
-                    Nawlins as the locals like to say.
+                    <span className="text-purple-300 font-semibold">Button'd</span> is a creative agency
+                    specializing in brand transformation and digital innovation. We partner with companies
+                    ready to revolutionize their market presence through strategic rebranding and
+                    cutting-edge web development.
                   </p>
                   <p>
-                    I specialize in <span className="text-purple-300 font-semibold">UI/UX and web development</span>. 
-                    I also have a passion for creating designs for all digital mediums. Thus button'd was born. 
-                    Check out the Gallery to see some of my work.
+                    Whether you're launching a new brand or reimagining an existing one, we create
+                    <span className="text-purple-300 font-semibold"> complete brand identities and high-performance websites</span> that
+                    don't just look stunning—they drive real business results. From startups to established
+                    companies, we help brands evolve and thrive in the digital age.
+                  </p>
+                  <p>
+                    Based in <span className="text-purple-300 font-semibold">New Orleans</span>, we bring
+                    creative energy and strategic thinking to every project. Our approach combines data-driven
+                    insights with bold, innovative design to create brands that stand out and websites that convert.
                   </p>
                   <div className="pt-6 border-t border-purple-400/20">
                     <p className="text-center text-purple-300/70 italic">
-                      Heart Centered Approach • Mindful Design • Empowered Results
+                      Strategic Branding • Revolutionary Design • Measurable Results
                     </p>
                   </div>
                 </div>
@@ -203,10 +213,10 @@ export default function Home() {
           <div className="max-w-7xl mx-auto">
             <AnimatedSection>
               <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 neon-text">
-                Gallery
+                Our Work
               </h2>
               <p className="text-center text-purple-200/70 text-lg mb-20 max-w-2xl mx-auto">
-                A showcase of recent projects and creative work
+                Brands we've revolutionized and websites we've brought to life
               </p>
             </AnimatedSection>
 
@@ -231,11 +241,11 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center">
             <AnimatedSection>
               <h2 className="text-5xl md:text-6xl font-bold mb-8 neon-text">
-                Let's Create Together
+                Ready to Revolutionize Your Brand?
               </h2>
               <p className="text-xl text-purple-200/70 mb-16 max-w-2xl mx-auto">
-                I have openings for website creation so contact me. If you have design ideas 
-                that you want to bring to life, feel free to reach out.
+                Let&apos;s transform your vision into reality. Whether you need a complete rebrand or
+                a cutting-edge website, we&apos;re here to help your company stand out and succeed.
               </p>
             </AnimatedSection>
 
@@ -269,9 +279,9 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-purple-400/10">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-purple-300/50 mb-2 font-script text-2xl">button'd</p>
+          <p className="text-purple-300/50 mb-2 font-script text-2xl">Button&apos;d</p>
           <p className="text-purple-400/40 text-sm">
-            © 2025 button'd. All rights reserved.
+            © 2025 Button&apos;d. All rights reserved.
           </p>
         </div>
       </footer>
