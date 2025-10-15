@@ -32,22 +32,20 @@ export default function Home() {
 
       {/* Hero Section - styled like the provided image */}
       <section className="pt-28 pb-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="relative mx-auto w-[min(90vw,520px)] aspect-square rounded-full glossy-orb flex items-center justify-center">
+        <div className="w-full mx-auto text-center flex flex-col items-center">
+          <div className="relative mx-auto w-[min(90vw,968px)] aspect-square rounded-full glossy-orb flex items-center justify-center">
             <Image
               src="/button.png"
               alt="button'd logo"
-              width={520}
-              height={520}
+              width={968}
+              height={968}
               className="object-contain drop-shadow-[0_0_24px_rgba(193,120,255,0.6)]"
               priority
             />
           </div>
 
           <div className="mt-10 space-y-2">
-            <a href="https://buttond.com" className="block text-xl sm:text-2xl md:text-3xl font-semibold neon-contact">
-              https://buttond.com
-            </a>
+
             <a href="mailto:benjamin@buttond.com" className="block text-xl sm:text-2xl md:text-3xl font-semibold neon-contact">
               benjamin@buttond.com
             </a>
