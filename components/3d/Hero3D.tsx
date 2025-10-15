@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import {
@@ -40,10 +41,10 @@ function RotatingLogo({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
 
   return (
     <mesh ref={meshRef}>
-      <planeGeometry args={[4, 4]} />
-      <meshStandardMaterial 
-        map={texture} 
-        transparent 
+      <planeGeometry args={[6, 6]} />
+      <meshStandardMaterial
+        map={texture}
+        transparent
         side={THREE.DoubleSide}
         emissive="#c178ff"
         emissiveIntensity={0.2}
@@ -99,9 +100,7 @@ function ParticleField() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={particleCount}
-          array={positions}
-          itemSize={3}
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <pointsMaterial
