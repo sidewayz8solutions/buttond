@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import PersonalizeAndAnimate from '@/components/PersonalizeAndAnimate';
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-black">
@@ -33,7 +35,9 @@ export default function Home() {
       {/* Hero Section - styled like the provided image */}
       <section className="pt-28 pb-24 px-4 sm:px-6 lg:px-8">
         <div className="w-full mx-auto text-center flex flex-col items-center">
-          <div className="relative mx-auto w-[min(90vw,968px)] aspect-square rounded-full glossy-orb flex items-center justify-center">
+          <div id="hero-orb" data-animate className="relative mx-auto w-[min(90vw,968px)] aspect-square rounded-full glossy-orb flex items-center justify-center">
+            <div className="parallax-layer layer-1" />
+            <div className="parallax-layer layer-2 rotate-slow" />
             <Image
               src="/button.png"
               alt="button'd logo"
@@ -44,9 +48,12 @@ export default function Home() {
             />
           </div>
 
-          <div className="mt-10 space-y-2">
+          <div className="mt-10 space-y-3">
+            {/* Personalization + controls */}
+            {/* @ts-expect-error Async Server Component types: this is a client component */}
+            <PersonalizeAndAnimate />
 
-            <a href="mailto:benjamin@buttond.com" className="block text-xl sm:text-2xl md:text-3xl font-semibold neon-contact">
+            <a href="mailto:benjamin@buttond.com" className="block text-xl sm:text-2xl md:text-3xl font-semibold neon-contact" data-animate>
               benjamin@buttond.com
             </a>
           </div>
@@ -95,12 +102,21 @@ export default function Home() {
             ].map((service, index) => (
               <div
                 key={index}
-                className="p-8 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all hover:shadow-lg hover:shadow-purple-500/20"
+                data-service={service.title}
+                data-animate
+                className="group hover-glow neo-surface glass-neo rounded-2xl border border-white/10 p-8"
               >
-                <div className="text-5xl mb-4">{service.icon}</div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  {service.title}
-                </h3>
+                <div className="perspective">
+                  <div className="card-3d">
+                    <div className="text-5xl mb-4">{service.icon}</div>
+                    <h3 className="text-xl font-semibold text-white mb-2">
+                      {service.title}
+                    </h3>
+                    <span className="rec-badge mt-2 inline-block text-xs px-2 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-200">
+                      Recommended
+                    </span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
