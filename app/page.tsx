@@ -1,223 +1,277 @@
-import Image from 'next/image';
+"use client";
 
-import PersonalizeAndAnimate from '@/components/PersonalizeAndAnimate';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+import ServiceCard3D from '@/components/3d/ServiceCard3D';
+import GalleryCard3D from '@/components/3d/GalleryCard3D';
+import ParallaxLayers from '@/components/effects/ParallaxLayers';
+import CursorGlow from '@/components/effects/CursorGlow';
+import PersonalizationEngine, { useServiceTracking } from '@/components/personalization/PersonalizationEngine';
+import AnimatedSection from '@/components/ui/AnimatedSection';
+import { motion } from 'framer-motion';
+
+// Dynamically import Hero3D with no SSR
+const Hero3D = dynamic(() => import('@/components/3d/Hero3D'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-screen bg-black flex items-center justify-center">
+      <div className="text-4xl neon-text animate-pulse">Loading...</div>
+    </div>
+  )
+});
+
+function ServiceCardWrapper({ service, index }: { service: any; index: number }) {
+  const { trackInteraction } = useServiceTracking(service.title);
+  
+  return (
+    <ServiceCard3D
+      {...service}
+      onInteraction={trackInteraction}
+    />
+  );
+}
 
 export default function Home() {
+  const services = [
+    { 
+      icon: "🎨", 
+      title: "Graphic Design", 
+      description: "Visual storytelling through compelling design",
+      details: "From brand identity to print materials, we create stunning visuals that capture your brand's essence and communicate your message with impact. Our designs blend creativity with strategic thinking."
+    },
+    { 
+      icon: "🎯", 
+      title: "Brand Strategy", 
+      description: "Strategic positioning and brand development",
+      details: "We help you define your brand's unique position in the market, develop compelling narratives, and create cohesive brand experiences that resonate with your target audience."
+    },
+    { 
+      icon: "💻", 
+      title: "Digital Design", 
+      description: "Modern web and digital experiences",
+      details: "Cutting-edge digital solutions that combine beautiful aesthetics with seamless functionality. We create responsive websites, apps, and digital products that users love."
+    },
+    { 
+      icon: "✨", 
+      title: "UX/UI", 
+      description: "User-centered design solutions",
+      details: "We design intuitive interfaces that prioritize user needs and business goals. Through research, testing, and iteration, we create experiences that are both beautiful and functional."
+    },
+  ];
+
+  const projects = [
+    { 
+      name: "Philly's", 
+      description: "Brand identity and packaging design for a modern food brand",
+      imageSrc: undefined
+    },
+    { 
+      name: "Awesome Sweater", 
+      description: "E-commerce platform design with seamless shopping experience",
+      imageSrc: undefined
+    },
+    { 
+      name: "Senseya", 
+      description: "Product design and branding for innovative tech startup",
+      imageSrc: undefined
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      {/* Custom Cursor Glow */}
+      <CursorGlow />
+
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-black/30 backdrop-blur-md z-50 border-b border-white/10">
+      <motion.nav 
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="fixed top-0 left-0 right-0 z-50 neo-nav glass-card border-b border-white/5"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <span className="text-3xl font-script gradient-text tracking-wide">
-                button'd
-              </span>
-            </div>
+          <div className="flex items-center justify-between h-16">
+            <div className="font-script text-2xl neon-text-subtle">button'd</div>
             <div className="hidden md:flex space-x-8">
-              <a href="#services" className="text-gray-300 hover:text-white transition-colors">
+              <a href="#hero" className="nav-link">Home</a>
+              <a href="#services" className="nav-link">Services</a>
+              <a href="#about" className="nav-link">About</a>
+              <a href="#gallery" className="nav-link">Gallery</a>
+              <a href="#contact" className="nav-link">Contact</a>
+            </div>
+          </div>
+        </div>
+      </motion.nav>
+
+      {/* Hero Section with 3D */}
+      <section id="hero" className="relative">
+        <Suspense fallback={
+          <div className="w-full h-screen bg-black flex items-center justify-center">
+            <div className="text-4xl neon-text animate-pulse">Loading...</div>
+          </div>
+        }>
+          <Hero3D />
+        </Suspense>
+        
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+            className="text-purple-300/50 text-sm"
+          >
+            ↓ Scroll to explore
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* Personalization Section */}
+      <ParallaxLayers className="py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <PersonalizationEngine />
+        </div>
+      </ParallaxLayers>
+
+      {/* Services Section with 3D Cards */}
+      <ParallaxLayers>
+        <section id="services" className="py-32 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <AnimatedSection>
+              <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 neon-text">
                 Services
-              </a>
-              <a href="#about" className="text-gray-300 hover:text-white transition-colors">
-                About
-              </a>
-              <a href="#gallery" className="text-gray-300 hover:text-white transition-colors">
-                Gallery
-              </a>
-              <a href="#contact" className="text-gray-300 hover:text-white transition-colors">
-                Contact
-              </a>
+              </h2>
+              <p className="text-center text-purple-200/70 text-lg mb-20 max-w-2xl mx-auto">
+                Comprehensive design solutions tailored to your brand's unique needs
+              </p>
+            </AnimatedSection>
+
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+              {services.map((service, index) => (
+                <AnimatedSection key={service.title} delay={index * 0.1}>
+                  <ServiceCardWrapper service={service} index={index} />
+                </AnimatedSection>
+              ))}
             </div>
           </div>
-        </div>
-      </nav>
-
-      {/* Hero Section - styled like the provided image */}
-      <section className="pt-28 pb-24 px-4 sm:px-6 lg:px-8">
-        <div className="w-full mx-auto text-center flex flex-col items-center">
-          <div id="hero-orb" data-animate className="relative mx-auto w-[min(90vw,968px)] aspect-square rounded-full glossy-orb flex items-center justify-center">
-            <div className="parallax-layer layer-1" />
-            <div className="parallax-layer layer-2 rotate-slow" />
-            <Image
-              src="/button.png"
-              alt="button'd logo"
-              width={968}
-              height={968}
-              className="object-contain drop-shadow-[0_0_24px_rgba(193,120,255,0.6)]"
-              priority
-            />
-          </div>
-
-          <div className="mt-10 space-y-3">
-            {/* Personalization + controls */}
-            {/* @ts-expect-error Async Server Component types: this is a client component */}
-            <PersonalizeAndAnimate />
-
-            <a href="mailto:benjamin@buttond.com" className="block text-xl sm:text-2xl md:text-3xl font-semibold neon-contact" data-animate>
-              benjamin@buttond.com
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Mascot Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black/20">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="relative w-64 h-64 mx-auto mb-8">
-            {/* Button mascot */}
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-full blur-2xl"></div>
-            <div className="relative z-10 flex items-center justify-center h-full">
-              <Image
-                src="/mascot.png"
-                alt="button'd mascot"
-                width={256}
-                height={256}
-                className="object-contain"
-              />
-            </div>
-          </div>
-          <h2 className="text-4xl font-bold text-white mb-4">
-            Heart Centered Approach
-          </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Mindful Design, Empowered Results
-          </p>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Services
-            </span>
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { title: "Graphic Design", icon: "🎨" },
-              { title: "Brand Strategy", icon: "🎯" },
-              { title: "Digital Design", icon: "💻" },
-              { title: "UX/UI Design", icon: "✨" },
-            ].map((service, index) => (
-              <div
-                key={index}
-                data-service={service.title}
-                data-animate
-                className="group hover-glow neo-surface glass-neo rounded-2xl border border-white/10 p-8"
-              >
-                <div className="perspective">
-                  <div className="card-3d">
-                    <div className="text-5xl mb-4">{service.icon}</div>
-                    <h3 className="text-xl font-semibold text-white mb-2">
-                      {service.title}
-                    </h3>
-                    <span className="rec-badge mt-2 inline-block text-xs px-2 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-200">
-                      Recommended
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      </ParallaxLayers>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-black/20">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              About
-            </span>
-          </h2>
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 md:p-12">
-            <p className="text-lg text-gray-300 leading-relaxed mb-6">
-              I'm Benjamin Shirley, American born creative from the state of Louisiana.
-              After my travels took me far and wide I have found myself back. I now reside
-              down in New Orleans or Nawlins as the locals like to say.
-            </p>
-            <p className="text-lg text-gray-300 leading-relaxed">
-              I specialize in UI/UX and web development. I also have a passion for creating
-              designs for all digital mediums. Thus button'd was born. Check out the Gallery
-              to see some of my work.
-            </p>
-          </div>
-        </div>
-      </section>
+      <ParallaxLayers>
+        <section id="about" className="py-32 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            <AnimatedSection>
+              <h2 className="text-5xl md:text-6xl font-bold text-center mb-16 neon-text">
+                About
+              </h2>
+            </AnimatedSection>
 
-      {/* Gallery Section */}
-      <section id="gallery" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Gallery
-            </span>
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { name: "Philly's", desc: "Restaurant Branding" },
-              { name: "Awesome Sweater", desc: "E-commerce Design" },
-              { name: "Senseya", desc: "Brand Identity" },
-            ].map((project, index) => (
-              <div
-                key={index}
-                className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-white/10 hover:border-purple-500/50 transition-all"
-              >
-                <div className="aspect-video flex items-center justify-center p-8">
-                  <div className="text-center">
-                    <div className="text-6xl mb-4">🎨</div>
-                    <h3 className="text-xl font-semibold text-white mb-2">
-                      {project.name}
-                    </h3>
-                    <p className="text-gray-400">{project.desc}</p>
+            <AnimatedSection delay={0.2}>
+              <div className="neo-card glass-card rounded-3xl p-8 md:p-12 border border-purple-400/20">
+                <div className="space-y-6 text-lg text-purple-100/80 leading-relaxed">
+                  <p>
+                    I'm <span className="text-purple-300 font-semibold">Benjamin Shirley</span>, 
+                    American born creative from the state of Louisiana. After my travels took me 
+                    far and wide I have found myself back. I now reside down in New Orleans or 
+                    Nawlins as the locals like to say.
+                  </p>
+                  <p>
+                    I specialize in <span className="text-purple-300 font-semibold">UI/UX and web development</span>. 
+                    I also have a passion for creating designs for all digital mediums. Thus button'd was born. 
+                    Check out the Gallery to see some of my work.
+                  </p>
+                  <div className="pt-6 border-t border-purple-400/20">
+                    <p className="text-center text-purple-300/70 italic">
+                      Heart Centered Approach • Mindful Design • Empowered Results
+                    </p>
                   </div>
                 </div>
               </div>
-            ))}
+            </AnimatedSection>
           </div>
-        </div>
-      </section>
+        </section>
+      </ParallaxLayers>
+
+      {/* Gallery Section with 3D Cards */}
+      <ParallaxLayers>
+        <section id="gallery" className="py-32 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <AnimatedSection>
+              <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 neon-text">
+                Gallery
+              </h2>
+              <p className="text-center text-purple-200/70 text-lg mb-20 max-w-2xl mx-auto">
+                A showcase of recent projects and creative work
+              </p>
+            </AnimatedSection>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project, index) => (
+                <GalleryCard3D
+                  key={project.name}
+                  title={project.name}
+                  description={project.description}
+                  imageSrc={project.imageSrc}
+                  index={index}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      </ParallaxLayers>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-black/20">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Let's Create Together
-            </span>
-          </h2>
-          <p className="text-xl text-gray-300 mb-12">
-            I have openings for website creation so contact me. If you have design ideas
-            that you want to bring to life, feel free to reach out.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <a
-              href="mailto:benjamin@buttond.com"
-              className="flex items-center gap-3 px-8 py-4 bg-white/5 backdrop-blur-sm rounded-full border border-white/10 hover:border-purple-500/50 transition-all text-white"
-            >
-              <span className="text-2xl">📧</span>
-              <span>benjamin@buttond.com</span>
-            </a>
-            <a
-              href="tel:+12253019908"
-              className="flex items-center gap-3 px-8 py-4 bg-white/5 backdrop-blur-sm rounded-full border border-white/10 hover:border-purple-500/50 transition-all text-white"
-            >
-              <span className="text-2xl">📱</span>
-              <span>+1 225 301 9908</span>
-            </a>
+      <ParallaxLayers>
+        <section id="contact" className="py-32 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <AnimatedSection>
+              <h2 className="text-5xl md:text-6xl font-bold mb-8 neon-text">
+                Let's Create Together
+              </h2>
+              <p className="text-xl text-purple-200/70 mb-16 max-w-2xl mx-auto">
+                I have openings for website creation so contact me. If you have design ideas 
+                that you want to bring to life, feel free to reach out.
+              </p>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.2}>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <motion.a
+                  href="mailto:benjamin@buttond.com"
+                  className="contact-button group"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="text-3xl group-hover:scale-110 transition-transform inline-block">📧</span>
+                  <span className="neon-contact">benjamin@buttond.com</span>
+                </motion.a>
+                
+                <motion.a
+                  href="tel:+12253019908"
+                  className="contact-button group"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="text-3xl group-hover:scale-110 transition-transform inline-block">📱</span>
+                  <span className="neon-contact">+1 225 301 9908</span>
+                </motion.a>
+              </div>
+            </AnimatedSection>
           </div>
-        </div>
-      </section>
+        </section>
+      </ParallaxLayers>
 
       {/* Footer */}
-      <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/10">
+      <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-purple-400/10">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-gray-400 mb-4">
+          <p className="text-purple-300/50 mb-2 font-script text-2xl">button'd</p>
+          <p className="text-purple-400/40 text-sm">
             © 2025 button'd. All rights reserved.
-          </p>
-          <p className="text-gray-500 text-sm">
-            Heart Centered Approach, Mindful Design, Empowered Results
           </p>
         </div>
       </footer>
