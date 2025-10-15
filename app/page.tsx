@@ -24,7 +24,7 @@ const Hero3D = dynamic(() => import('@/components/3d/Hero3D'), {
   )
 });
 
-function ServiceCardWrapper({ service, index }: { service: any; index: number }) {
+function ServiceCardWrapper({ service, index }: { service: unknown; index: number }) {
   const { trackInteraction } = useServiceTracking(service.title);
   
   return (
@@ -179,15 +179,15 @@ export default function Home() {
               <div className="neo-card glass-card rounded-3xl p-8 md:p-12 border border-purple-400/20">
                 <div className="space-y-6 text-lg text-purple-100/80 leading-relaxed">
                   <p>
-                    <span className="text-purple-300 font-semibold">Button'd</span> is a creative agency
+                    <span className="text-purple-300 font-semibold">Buttond</span> is a creative agency
                     specializing in brand transformation and digital innovation. We partner with companies
                     ready to revolutionize their market presence through strategic rebranding and
                     cutting-edge web development.
                   </p>
                   <p>
-                    Whether you're launching a new brand or reimagining an existing one, we create
+                    Whether you are launching a new brand or reimagining an existing one, we create
                     <span className="text-purple-300 font-semibold"> complete brand identities and high-performance websites</span> that
-                    don't just look stunning—they drive real business results. From startups to established
+                    do not just look stunning—they drive real business results. From startups to established
                     companies, we help brands evolve and thrive in the digital age.
                   </p>
                   <p>
@@ -216,7 +216,7 @@ export default function Home() {
                 Our Work
               </h2>
               <p className="text-center text-purple-200/70 text-lg mb-20 max-w-2xl mx-auto">
-                Brands we've revolutionized and websites we've brought to life
+                Brands we have revolutionized and websites we have brought to life
               </p>
             </AnimatedSection>
 
