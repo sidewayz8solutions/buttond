@@ -1,9 +1,21 @@
 "use client";
 
-import { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useTexture, PerspectiveCamera, Environment } from '@react-three/drei';
+import {
+  useRef,
+  useState,
+} from 'react';
+
 import * as THREE from 'three';
+
+import {
+  Environment,
+  PerspectiveCamera,
+  useTexture,
+} from '@react-three/drei';
+import {
+  Canvas,
+  useFrame,
+} from '@react-three/fiber';
 
 function RotatingLogo({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -42,7 +54,7 @@ function RotatingLogo({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
 
 function GlowingSphere() {
   const sphereRef = useRef<THREE.Mesh>(null);
-  
+
   useFrame((state) => {
     if (!sphereRef.current) return;
     sphereRef.current.rotation.x = state.clock.elapsedTime * 0.1;
@@ -59,6 +71,8 @@ function GlowingSphere() {
         roughness={0.2}
         metalness={0.8}
         wireframe={false}
+        transparent
+        opacity={0.15}
       />
     </mesh>
   );
@@ -161,10 +175,10 @@ export default function Hero3D() {
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
         <div className="text-center space-y-6 px-4">
           <h1 className="font-script text-6xl md:text-8xl lg:text-9xl neon-text animate-fade-in">
-            button'd
+            Button'd
           </h1>
           <p className="text-xl md:text-2xl text-purple-200/80 animate-fade-in-delay">
-            Creative Design & Brand Strategy
+            Revolutionizing Brands Through Design
           </p>
         </div>
       </div>
