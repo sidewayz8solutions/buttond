@@ -35,7 +35,7 @@ export default function Home() {
         <div className="max-w-3xl mx-auto text-center">
           <div className="relative mx-auto w-[min(90vw,520px)] aspect-square rounded-full glossy-orb flex items-center justify-center">
             <Image
-              src="/logo.png"
+              src="/button.png"
               alt="button'd logo"
               width={520}
               height={520}
