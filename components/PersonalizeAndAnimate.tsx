@@ -126,14 +126,14 @@ export default function PersonalizeAndAnimate({ showGreeting = true, attachToHer
   useEffect(() => {
     if (!attachToHero || typeof window === "undefined") return;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const hero = document.getElementById("hero-orb");
-    if (!hero) return;
+    const heroElement = document.getElementById("hero-orb");
+    if (!heroElement) return;
 
     // Cursor glow positioner
     const glow = glowRef.current;
     function onMove(e: MouseEvent) {
-      if (!glow) return;
-      const rect = hero.getBoundingClientRect();
+      if (!glow || !heroElement) return;
+      const rect = heroElement.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       glow.style.setProperty("--gx", `${x}px`);
@@ -142,12 +142,13 @@ export default function PersonalizeAndAnimate({ showGreeting = true, attachToHer
 
     // Parallax on scroll
     function onScroll() {
+      if (!heroElement) return;
       const y = window.scrollY || 0;
-      hero.style.setProperty("--parallax", String(Math.min(1, Math.max(0, y / 400))));
+      heroElement.style.setProperty("--parallax", String(Math.min(1, Math.max(0, y / 400))));
     }
 
     if (!reduceMotion) {
-      hero.addEventListener("mousemove", onMove);
+      heroElement.addEventListener("mousemove", onMove);
       window.addEventListener("scroll", onScroll, { passive: true });
     }
 
@@ -155,7 +156,7 @@ export default function PersonalizeAndAnimate({ showGreeting = true, attachToHer
 
     return () => {
       if (!reduceMotion) {
-        hero.removeEventListener("mousemove", onMove);
+        heroElement.removeEventListener("mousemove", onMove);
         window.removeEventListener("scroll", onScroll);
       }
     };
