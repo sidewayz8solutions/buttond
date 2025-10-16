@@ -178,16 +178,16 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <PersonalizationEngine />
         </div>
-      </ParallaxLayers>
+      </ParallaxLayers>n
 
       {/* Services Section with 3D Cards */}
       <ParallaxLayers>
         <section id="services" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
-          {/* Background video: hot.mp4 */}
+          {/* Background video: e.mp4 */}
           <video
             ref={servicesVideoRef}
             className="absolute inset-0 w-full h-full object-cover opacity-50 transform scale-95"
-            src="/hot.mp4"
+            src="/e.mp4"
             autoPlay
             muted={servicesMuted}
             loop
