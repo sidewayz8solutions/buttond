@@ -286,6 +286,12 @@ html {
 .about-video-vignette{
   box-shadow: inset 0 0 80px rgba(0,0,0,0.45);
 }
+.services-b-bg{
+  background-image: url('/b.png');
+  background-size: cover;
+  background-position: center center;
+  mix-blend-mode: screen;
+}
 .gallery-b-bg{
   background-image: url('/b.jpg');
   background-size: cover;
