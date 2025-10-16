@@ -101,12 +101,14 @@ function GlowingSphere() {
     <mesh ref={sphereRef} position={[0, 0, -2]}>
       <sphereGeometry args={[2.5, 64, 64]} />
       <meshStandardMaterial
-        color="#d8d8d8"
+        color="#efefef"
         map={moonTexture || undefined}
         bumpMap={moonTexture || undefined}
         bumpScale={0.08}
-        roughness={0.95}
+        roughness={0.9}
         metalness={0.0}
+        emissive="#dcdcdc"
+        emissiveIntensity={0.08}
         wireframe={false}
       />
     </mesh>
@@ -184,7 +186,7 @@ export default function Hero3D() {
         <PerspectiveCamera makeDefault position={[0, 0, 8]} />
         
         {/* Lighting - psychedelic multi-color */}
-        <ambientLight intensity={0.25} />
+        <ambientLight intensity={0.35} />
         <pointLight position={[10, 10, 10]} intensity={0.7} color="#ff4fa3" />
         <pointLight position={[-10, 5, 5]} intensity={0.6} color="#ff9d2e" />
         <pointLight position={[5, -8, -2]} intensity={0.6} color="#2ee6a6" />
@@ -196,6 +198,8 @@ export default function Hero3D() {
           color="#4fd8ff"
         />
         <pointLight position={[0, 0, -8]} intensity={0.4} color="#c178ff" />
+        {/* Neutral white fill to brighten logo and moon without tint */}
+        <pointLight position={[0, 0, 6]} intensity={0.6} color="#ffffff" />
         
         {/* 3D Elements */}
         {!reducedMotion && <ParticleField />}

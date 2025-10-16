@@ -42,7 +42,7 @@
 .nav-link::after { background: var(--psy-rainbow); }
 /* Hero brand text: light purple with white glow + outline */
 .hero-purple-glow-text {
-  color: #e4b7ff; /* light purple */
+  color: #a066ff; /* darker purple */
   -webkit-text-stroke: 1px rgba(0,0,0,0.95); /* black outline */
   text-shadow:
     0 0 6px rgba(255,255,255,0.95),
