@@ -286,8 +286,8 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-purple-400/10">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-purple-300/50 mb-2 font-script text-2xl">Button&apos;d</p>
-          <p className="text-purple-400/40 text-sm">
+          <p className="text-purple-200/90 mb-2 font-script text-2xl">Button&apos;d</p>
+          <p className="text-purple-200/70 text-sm">
             © 2025 Button&apos;d. All rights reserved.
           </p>
         </div>
