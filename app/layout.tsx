@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Benjamin Shirley" }],
   openGraph: {
     title: "button'd - UI/UX Design & Web Development",
-    description: "Heart centered approach, mindful design, empowered results",
+    description: "Inspire, Create, Innovate",
     type: "website",
   },
 };

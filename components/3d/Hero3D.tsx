@@ -81,7 +81,7 @@ function GlowingSphere() {
 
 function ParticleField() {
   const particlesRef = useRef<THREE.Points>(null);
-  const particleCount = 200;
+  const particleCount = 800;
   
   const positions = new Float32Array(particleCount * 3);
   for (let i = 0; i < particleCount; i++) {
@@ -104,7 +104,7 @@ function ParticleField() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
+        size={0.02}
         color="#ffffff"
         transparent
         opacity={0.7}
@@ -179,7 +179,7 @@ export default function Hero3D() {
             Button'd
           </h1>
           <p className="text-xl md:text-2xl text-white/80 animate-fade-in-delay">
-            Revolutionizing Brands Through Design
+            Design Your Path, Define Your Future
           </p>
         </div>
       </div>
