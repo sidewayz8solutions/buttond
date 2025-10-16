@@ -107,6 +107,8 @@ export default function Home() {
   const [aboutMuted4, setAboutMuted4] = useState(true);
   const [aboutPlaying4, setAboutPlaying4] = useState(false);
 
+  const [timeAspect, setTimeAspect] = useState<{ w: number; h: number } | null>(null);
+
   // Video click handlers
   const handleVideoClick = (videoRef: React.RefObject<HTMLVideoElement | null>, playing: boolean, setPlaying: (playing: boolean) => void) => {
     if (videoRef.current) {
@@ -279,7 +281,7 @@ export default function Home() {
               <div className="flex flex-col gap-10 mt-10">
                 {/* time.mp4 */}
                 <div className="neo-card rounded-3xl p-3 md:p-5 overflow-hidden border border-black/60 bg-black shadow-2xl">
-                  <div className="relative aspect-video md:aspect-[21/9] bg-black">
+                  <div className="relative bg-black" style={{ aspectRatio: timeAspect ? `${timeAspect.w} / ${timeAspect.h}` : '16 / 9' }}>
                     <div className="absolute z-20 top-3 right-3 flex gap-2">
                       <button
                         type="button"
@@ -305,6 +307,10 @@ export default function Home() {
                       loop
                       playsInline
                       preload="metadata"
+                      onLoadedMetadata={() => {
+                        const v = aboutVideoRef.current;
+                        if (v) setTimeAspect({ w: v.videoWidth, h: v.videoHeight });
+                      }}
                       onClick={() => handleVideoClick(aboutVideoRef, aboutPlaying, setAboutPlaying)}
                     />
                     <div className="absolute inset-0 pointer-events-none about-video-vignette" />
