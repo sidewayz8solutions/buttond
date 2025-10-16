@@ -186,8 +186,8 @@ export default function Home() {
           {/* Background video: background.mp4 */}
           <video
             ref={servicesVideoRef}
-            className="absolute inset-0 w-full h-full object-cover opacity-50 transform scale-95"
-            src="/background.mp4"
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
+            src="/b.mp4"
             autoPlay
             muted={servicesMuted}
             loop
@@ -318,48 +318,92 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* a.mp4 */}
-                <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
-                  <div className="relative aspect-video">
-                    <div className="absolute z-20 top-3 right-3 flex gap-2">
-                      <button
-                        type="button"
-                        aria-label={aboutMuted2 ? 'Unmute video' : 'Mute video'}
-                        onClick={() => {
-                          const next = !aboutMuted2;
-                          setAboutMuted2(next);
-                          if (aboutVideoRef2.current) {
-                            aboutVideoRef2.current.muted = next;
-                            if (!next) aboutVideoRef2.current.volume = 0.6;
-                          }
-                        }}
-                        className="neo-button text-xs px-2.5 py-1 rounded-full text-purple-100 hover:text-white"
-                      >
-                        {aboutMuted2 ? 'Sound Off 🔇' : 'Sound On 🔊'}
-                      </button>
-                    </div>
-                    <video
-                      ref={aboutVideoRef2}
-                      className="absolute inset-0 w-full h-full object-contain cursor-pointer"
-                      src="/a.mp4"
-                      muted={aboutMuted2}
-                      loop
-                      playsInline
-                      preload="metadata"
-                      onClick={() => handleVideoClick(aboutVideoRef2, aboutPlaying2, setAboutPlaying2)}
-                    />
-                    <div className="absolute inset-0 pointer-events-none about-video-vignette" />
-                    {!aboutPlaying2 && (
-                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div className="bg-black/50 rounded-full p-4">
-                          <div className="text-white text-4xl">▶</div>
-                        </div>
+                {/* a.mp4 + crazy1.mp4 - portrait side by side */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  {/* a.mp4 portrait */}
+                  <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
+                    <div className="relative aspect-[9/16]">
+                      <div className="absolute z-20 top-3 right-3 flex gap-2">
+                        <button
+                          type="button"
+                          aria-label={aboutMuted2 ? 'Unmute video' : 'Mute video'}
+                          onClick={() => {
+                            const next = !aboutMuted2;
+                            setAboutMuted2(next);
+                            if (aboutVideoRef2.current) {
+                              aboutVideoRef2.current.muted = next;
+                              if (!next) aboutVideoRef2.current.volume = 0.6;
+                            }
+                          }}
+                          className="neo-button text-xs px-2.5 py-1 rounded-full text-purple-100 hover:text-white"
+                        >
+                          {aboutMuted2 ? 'Sound Off 🔇' : 'Sound On 🔊'}
+                        </button>
                       </div>
-                    )}
+                      <video
+                        ref={aboutVideoRef2}
+                        className="absolute inset-0 w-full h-full object-contain cursor-pointer"
+                        src="/a.mp4"
+                        muted={aboutMuted2}
+                        loop
+                        playsInline
+                        preload="metadata"
+                        onClick={() => handleVideoClick(aboutVideoRef2, aboutPlaying2, setAboutPlaying2)}
+                      />
+                      <div className="absolute inset-0 pointer-events-none about-video-vignette" />
+                      {!aboutPlaying2 && (
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="bg-black/50 rounded-full p-4">
+                            <div className="text-white text-4xl">▶</div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* crazy1.mp4 portrait */}
+                  <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
+                    <div className="relative aspect-[9/16]">
+                      <div className="absolute z-20 top-3 right-3 flex gap-2">
+                        <button
+                          type="button"
+                          aria-label={aboutMuted4 ? 'Unmute video' : 'Mute video'}
+                          onClick={() => {
+                            const next = !aboutMuted4;
+                            setAboutMuted4(next);
+                            if (aboutVideoRef4.current) {
+                              aboutVideoRef4.current.muted = next;
+                              if (!next) aboutVideoRef4.current.volume = 0.6;
+                            }
+                          }}
+                          className="neo-button text-xs px-2.5 py-1 rounded-full text-purple-100 hover:text-white"
+                        >
+                          {aboutMuted4 ? 'Sound Off 🔇' : 'Sound On 🔊'}
+                        </button>
+                      </div>
+                      <video
+                        ref={aboutVideoRef4}
+                        className="absolute inset-0 w-full h-full object-contain cursor-pointer"
+                        src="/crazy1.mp4"
+                        muted={aboutMuted4}
+                        loop
+                        playsInline
+                        preload="metadata"
+                        onClick={() => handleVideoClick(aboutVideoRef4, aboutPlaying4, setAboutPlaying4)}
+                      />
+                      <div className="absolute inset-0 pointer-events-none about-video-vignette" />
+                      {!aboutPlaying4 && (
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <div className="bg-black/50 rounded-full p-4">
+                            <div className="text-white text-4xl">▶</div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
-                {/* feature.mp4 */}
+                {/* feature.mp4 - wide bottom */}
                 <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
                   <div className="relative aspect-video">
                     <div className="absolute z-20 top-3 right-3 flex gap-2">
@@ -381,7 +425,7 @@ export default function Home() {
                     </div>
                     <video
                       ref={aboutVideoRef3}
-                      className="absolute inset-0 w-full h-full object-contain cursor-pointer"
+                      className="absolute inset-0 w-full h-full object-cover cursor-pointer"
                       src="/feature.mp4"
                       muted={aboutMuted3}
                       loop
@@ -391,47 +435,6 @@ export default function Home() {
                     />
                     <div className="absolute inset-0 pointer-events-none about-video-vignette" />
                     {!aboutPlaying3 && (
-                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div className="bg-black/50 rounded-full p-4">
-                          <div className="text-white text-4xl">▶</div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* crazy1.mp4 */}
-                <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
-                  <div className="relative aspect-video">
-                    <div className="absolute z-20 top-3 right-3 flex gap-2">
-                      <button
-                        type="button"
-                        aria-label={aboutMuted4 ? 'Unmute video' : 'Mute video'}
-                        onClick={() => {
-                          const next = !aboutMuted4;
-                          setAboutMuted4(next);
-                          if (aboutVideoRef4.current) {
-                            aboutVideoRef4.current.muted = next;
-                            if (!next) aboutVideoRef4.current.volume = 0.6;
-                          }
-                        }}
-                        className="neo-button text-xs px-2.5 py-1 rounded-full text-purple-100 hover:text-white"
-                      >
-                        {aboutMuted4 ? 'Sound Off 🔇' : 'Sound On 🔊'}
-                      </button>
-                    </div>
-                    <video
-                      ref={aboutVideoRef4}
-                      className="absolute inset-0 w-full h-full object-contain cursor-pointer"
-                      src="/crazy1.mp4"
-                      muted={aboutMuted4}
-                      loop
-                      playsInline
-                      preload="metadata"
-                      onClick={() => handleVideoClick(aboutVideoRef4, aboutPlaying4, setAboutPlaying4)}
-                    />
-                    <div className="absolute inset-0 pointer-events-none about-video-vignette" />
-                    {!aboutPlaying4 && (
                       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div className="bg-black/50 rounded-full p-4">
                           <div className="text-white text-4xl">▶</div>
