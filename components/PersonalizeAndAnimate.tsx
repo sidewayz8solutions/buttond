@@ -1,6 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 // Small, dependency-free client util that:
 // - Shows a time-of-day greeting
@@ -167,7 +172,7 @@ export default function PersonalizeAndAnimate({ showGreeting = true, attachToHer
     <div className="w-full flex flex-col items-center">
       {showGreeting && (
         <div className="mt-6 text-lg md:text-xl neon-contact" data-animate>
-          {greeting}, welcome to button'd.
+          {greeting}, welcome to button&apos;d.
         </div>
       )}
       {/* Intensity control */}

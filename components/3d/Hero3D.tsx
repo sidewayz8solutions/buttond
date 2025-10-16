@@ -20,24 +20,14 @@ import {
   useThree,
 } from '@react-three/fiber';
 
-function RotatingLogo({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
+function StaticLogo() {
   const meshRef = useRef<THREE.Mesh>(null);
   const texture = useTexture('/buttond11.png');
   
   useFrame((state) => {
     if (!meshRef.current) return;
     
-    // Smooth rotation based on mouse position
-    const targetRotationY = mouseX * 0.5;
-    const targetRotationX = -mouseY * 0.3;
-    
-    meshRef.current.rotation.y += (targetRotationY - meshRef.current.rotation.y) * 0.05;
-    meshRef.current.rotation.x += (targetRotationX - meshRef.current.rotation.x) * 0.05;
-    
-    // Gentle continuous rotation
-    meshRef.current.rotation.z += 0.001;
-    
-    // Floating animation
+    // Gentle floating animation only
     meshRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
   });
 
@@ -174,16 +164,7 @@ function ParticleField() {
 }
 
 export default function Hero3D() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [reducedMotion, setReducedMotion] = useState(false);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (reducedMotion) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    const y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
-    setMousePosition({ x, y });
-  };
 
   // Check for reduced motion preference
   if (typeof window !== 'undefined') {
@@ -194,10 +175,7 @@ export default function Hero3D() {
   }
 
   return (
-    <div 
-      className="relative w-full h-screen"
-      onMouseMove={handleMouseMove}
-    >
+    <div className="relative w-full h-screen">
       <Canvas
         className="absolute inset-0"
         gl={{ 
@@ -229,7 +207,7 @@ export default function Hero3D() {
         {/* 3D Elements */}
         {!reducedMotion && <ParticleField />}
         <GlowingSphere />
-        <RotatingLogo mouseX={mousePosition.x} mouseY={mousePosition.y} />
+        <StaticLogo />
         
         {/* Environment for reflections */}
         <Environment preset="night" />
