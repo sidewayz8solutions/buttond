@@ -2,6 +2,7 @@
 "use client";
 
 import {
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -54,24 +55,59 @@ function RotatingLogo({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
 function GlowingSphere() {
   const sphereRef = useRef<THREE.Mesh>(null);
 
+  // Procedural "moon" texture using canvas
+  const moonTexture = useMemo(() => {
+    const size = 512;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null as unknown as THREE.CanvasTexture;
+
+    // Base light gray
+    ctx.fillStyle = '#dcdcdc';
+    ctx.fillRect(0, 0, size, size);
+
+    // Draw soft crater-like spots
+    for (let i = 0; i < 700; i++) {
+      const cx = Math.random() * size;
+      const cy = Math.random() * size;
+      const r = Math.random() * 18 + 4; // 4-22px
+      const g = ctx.createRadialGradient(cx, cy, r * 0.2, cx, cy, r);
+      const depth = 0.15 + Math.random() * 0.25; // darkness
+      g.addColorStop(0, `rgba(0,0,0,${0.6 * depth})`);
+      g.addColorStop(0.6, `rgba(0,0,0,${0.15 * depth})`);
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.globalAlpha = 0.6;
+      ctx.fillStyle = g as unknown as string;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.anisotropy = 4;
+    tex.needsUpdate = true;
+    return tex;
+  }, []);
+
   useFrame((state) => {
     if (!sphereRef.current) return;
-    sphereRef.current.rotation.x = state.clock.elapsedTime * 0.1;
-    sphereRef.current.rotation.y = state.clock.elapsedTime * 0.15;
+    sphereRef.current.rotation.x = state.clock.elapsedTime * 0.05;
+    sphereRef.current.rotation.y = state.clock.elapsedTime * 0.08;
   });
 
   return (
     <mesh ref={sphereRef} position={[0, 0, -2]}>
       <sphereGeometry args={[2.5, 64, 64]} />
       <meshStandardMaterial
-        color="#1a0a2e"
-        emissive="#b478ff"
-        emissiveIntensity={0.3}
-        roughness={0.2}
-        metalness={0.8}
+        color="#d8d8d8"
+        map={moonTexture || undefined}
+        bumpMap={moonTexture || undefined}
+        bumpScale={0.08}
+        roughness={0.95}
+        metalness={0.0}
         wireframe={false}
-        transparent
-        opacity={0.15}
       />
     </mesh>
   );
