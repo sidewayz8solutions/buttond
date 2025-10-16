@@ -43,11 +43,11 @@
 /* Hero brand text: light purple with white glow + outline */
 .hero-purple-glow-text {
   color: #e4b7ff; /* light purple */
-  -webkit-text-stroke: 0.5px rgba(255,255,255,0.9);
+  -webkit-text-stroke: 1px rgba(0,0,0,0.95); /* black outline */
   text-shadow:
-    0 0 6px rgba(255,255,255,0.9),
-    0 0 14px rgba(255,255,255,0.7),
-    0 0 24px rgba(255,255,255,0.5);
+    0 0 6px rgba(255,255,255,0.95),
+    0 0 14px rgba(255,255,255,0.8),
+    0 0 24px rgba(255,255,255,0.6);
 }
 
 
