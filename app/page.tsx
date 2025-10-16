@@ -299,7 +299,7 @@ export default function Home() {
                     </div>
                     <video
                       ref={aboutVideoRef}
-                      className="absolute inset-0 w-full h-full object-contain cursor-pointer"
+                      className="absolute inset-0 w-full h-full object-cover cursor-pointer"
                       src="/time.mp4"
                       muted={aboutMuted}
                       loop
