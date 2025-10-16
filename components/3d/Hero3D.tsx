@@ -17,6 +17,7 @@ import {
 import {
   Canvas,
   useFrame,
+  useThree,
 } from '@react-three/fiber';
 
 function RotatingLogo({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
@@ -117,25 +118,38 @@ function GlowingSphere() {
 
 function ParticleField() {
   const particlesRef = useRef<THREE.Points>(null);
+  const { size, camera } = useThree();
 
   // Adapt particle count to device DPR; memoize buffers
   const particleCount = useMemo(() => {
     if (typeof window !== 'undefined') {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      return dpr > 1.5 ? 600 : 800;
+      return dpr > 1.5 ? 600 : 900; // slightly more to keep density across full screen
     }
     return 800;
   }, []);
 
+  // Compute screen-space width/height in world units at a reference depth behind the logo
+  const screenBounds = useMemo(() => {
+    const cam = camera as THREE.PerspectiveCamera;
+    const zRef = -8; // mid-background between moon (-2) and far field
+    const distance = cam.position.z - zRef;
+    const height = 2 * Math.tan((cam.fov * Math.PI / 180) / 2) * distance;
+    const width = height * (size.width / size.height);
+    return { width: width * 1.3, height: height * 1.3 }; // margin so edges stay filled
+  }, [camera, size]);
+
   const positions = useMemo(() => {
     const arr = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i++) {
-      arr[i * 3] = (Math.random() - 0.5) * 20;
-      arr[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      arr[i * 3 + 2] = (Math.random() - 0.5) * 10 - 5;
+      // Spread across the whole hero viewport
+      arr[i * 3] = (Math.random() - 0.5) * screenBounds.width;
+      arr[i * 3 + 1] = (Math.random() - 0.5) * screenBounds.height;
+      // Keep particles behind logo and text
+      arr[i * 3 + 2] = -2 - Math.random() * 10; // [-12, -2]
     }
     return arr;
-  }, [particleCount]);
+  }, [particleCount, screenBounds]);
 
   useFrame((state) => {
     if (!particlesRef.current) return;
