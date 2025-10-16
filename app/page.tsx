@@ -71,20 +71,20 @@ export default function Home() {
   ];
 
   const projects = [
-    { 
-      name: "Philly's", 
-      description: "Brand identity and packaging design for a modern food brand",
-      imageSrc: undefined
+    {
+      name: "Püper",
+      description: "Brand and website design",
+      imageSrc: "/puper.png"
     },
-    { 
-      name: "Awesome Sweater", 
-      description: "E-commerce platform design with seamless shopping experience",
-      imageSrc: undefined
+    {
+      name: "PageMint",
+      description: "Brand and website design",
+      imageSrc: "/pagemint.png"
     },
-    { 
-      name: "Senseya", 
-      description: "Product design and branding for innovative tech startup",
-      imageSrc: undefined
+    {
+      name: "Sidewayz 8 Solutions",
+      description: "Brand and website design",
+      imageSrc: "/s8.png"
     },
   ];
 
