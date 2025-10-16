@@ -2,7 +2,6 @@
 
 import {
   Suspense,
-  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -36,7 +35,7 @@ type Service = {
   details: string;
 };
 
-function ServiceCardWrapper({ service, index }: { service: Service; index: number }) {
+function ServiceCardWrapper({ service }: { service: Service }) {
   const { trackInteraction } = useServiceTracking(service.title);
 
   return (
@@ -93,47 +92,33 @@ export default function Home() {
     },
   ];
 
+  const servicesVideoRef = useRef<HTMLVideoElement>(null);
+  const [servicesMuted, setServicesMuted] = useState(true);
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
   const [aboutMuted, setAboutMuted] = useState(true);
+  const [aboutPlaying, setAboutPlaying] = useState(false);
   const aboutVideoRef2 = useRef<HTMLVideoElement>(null);
   const aboutVideoRef3 = useRef<HTMLVideoElement>(null);
   const [aboutMuted2, setAboutMuted2] = useState(true);
+  const [aboutPlaying2, setAboutPlaying2] = useState(false);
   const [aboutMuted3, setAboutMuted3] = useState(true);
+  const [aboutPlaying3, setAboutPlaying3] = useState(false);
   const aboutVideoRef4 = useRef<HTMLVideoElement>(null);
   const [aboutMuted4, setAboutMuted4] = useState(true);
+  const [aboutPlaying4, setAboutPlaying4] = useState(false);
 
-  useEffect(() => {
-    const videos = [
-      aboutVideoRef.current,
-      aboutVideoRef2.current,
-      aboutVideoRef3.current,
-      aboutVideoRef4.current,
-    ].filter(Boolean) as HTMLVideoElement[];
-
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-      videos.forEach(v => v.pause());
-      return;
+  // Video click handlers
+  const handleVideoClick = (videoRef: React.RefObject<HTMLVideoElement | null>, playing: boolean, setPlaying: (playing: boolean) => void) => {
+    if (videoRef.current) {
+      if (playing) {
+        videoRef.current.pause();
+        setPlaying(false);
+      } else {
+        videoRef.current.play().catch(() => {});
+        setPlaying(true);
+      }
     }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const v = entry.target as HTMLVideoElement;
-        if (entry.isIntersecting) {
-          v.play().catch(() => {});
-        } else {
-          v.pause();
-        }
-      });
-    }, { threshold: 0.2 });
-
-    videos.forEach(v => observer.observe(v));
-
-    return () => {
-      videos.forEach(v => observer.unobserve(v));
-      observer.disconnect();
-    };
-  }, []);
+  };
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -198,11 +183,38 @@ export default function Home() {
       {/* Services Section with 3D Cards */}
       <ParallaxLayers>
         <section id="services" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
-          {/* Background image: b.png */}
-          <div className="absolute inset-0 z-0 pointer-events-none services-b-bg opacity-20 blur-sm" />
-
+          {/* Background video: b.mp4 */}
+          <video
+            ref={servicesVideoRef}
+            className="absolute inset-0 w-full h-full object-cover opacity-50 transform scale-95"
+            src="/b.mp4"
+            autoPlay
+            muted={servicesMuted}
+            loop
+            playsInline
+            preload="metadata"
+          />
           {/* Dark gradient overlay for legibility */}
           <div className="absolute inset-0 pointer-events-none services-video-overlay" />
+
+          {/* Audio toggle */}
+          <div className="absolute z-20 top-4 right-4">
+            <button
+              type="button"
+              aria-label={servicesMuted ? 'Unmute background video' : 'Mute background video'}
+              onClick={() => {
+                const next = !servicesMuted;
+                setServicesMuted(next);
+                if (servicesVideoRef.current) {
+                  servicesVideoRef.current.muted = next;
+                  if (!next) servicesVideoRef.current.volume = 0.6;
+                }
+              }}
+              className="neo-button text-sm px-3 py-1.5 rounded-full text-purple-100 hover:text-white"
+            >
+              {servicesMuted ? 'Sound Off 🔇' : 'Sound On 🔊'}
+            </button>
+          </div>
 
           <div className="relative z-10 max-w-7xl mx-auto">
             <AnimatedSection>
@@ -217,7 +229,7 @@ export default function Home() {
             <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
               {services.map((service, index) => (
                 <AnimatedSection key={service.title} delay={index * 0.1}>
-                  <ServiceCardWrapper service={service} index={index} />
+                  <ServiceCardWrapper service={service} />
                 </AnimatedSection>
               ))}
             </div>
@@ -268,7 +280,7 @@ export default function Home() {
                 {/* time.mp4 */}
                 <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
                   <div className="relative aspect-video">
-                    <div className="absolute z-20 top-3 right-3">
+                    <div className="absolute z-20 top-3 right-3 flex gap-2">
                       <button
                         type="button"
                         aria-label={aboutMuted ? 'Unmute video' : 'Mute video'}
@@ -282,27 +294,34 @@ export default function Home() {
                         }}
                         className="neo-button text-xs px-2.5 py-1 rounded-full text-purple-100 hover:text-white"
                       >
-                        {aboutMuted ? 'Sound Off \ud83d\udd07' : 'Sound On \ud83d\udd0a'}
+                        {aboutMuted ? 'Sound Off 🔇' : 'Sound On 🔊'}
                       </button>
                     </div>
                     <video
                       ref={aboutVideoRef}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover cursor-pointer"
                       src="/time.mp4"
-                      autoPlay
                       muted={aboutMuted}
                       loop
                       playsInline
                       preload="metadata"
+                      onClick={() => handleVideoClick(aboutVideoRef, aboutPlaying, setAboutPlaying)}
                     />
                     <div className="absolute inset-0 pointer-events-none about-video-vignette" />
+                    {!aboutPlaying && (
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="bg-black/50 rounded-full p-4">
+                          <div className="text-white text-4xl">▶</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
                 {/* a.mp4 */}
                 <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
                   <div className="relative aspect-video">
-                    <div className="absolute z-20 top-3 right-3">
+                    <div className="absolute z-20 top-3 right-3 flex gap-2">
                       <button
                         type="button"
                         aria-label={aboutMuted2 ? 'Unmute video' : 'Mute video'}
@@ -316,27 +335,34 @@ export default function Home() {
                         }}
                         className="neo-button text-xs px-2.5 py-1 rounded-full text-purple-100 hover:text-white"
                       >
-                        {aboutMuted2 ? 'Sound Off \ud83d\udd07' : 'Sound On \ud83d\udd0a'}
+                        {aboutMuted2 ? 'Sound Off 🔇' : 'Sound On 🔊'}
                       </button>
                     </div>
                     <video
                       ref={aboutVideoRef2}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover cursor-pointer"
                       src="/a.mp4"
-                      autoPlay
                       muted={aboutMuted2}
                       loop
                       playsInline
                       preload="metadata"
+                      onClick={() => handleVideoClick(aboutVideoRef2, aboutPlaying2, setAboutPlaying2)}
                     />
                     <div className="absolute inset-0 pointer-events-none about-video-vignette" />
+                    {!aboutPlaying2 && (
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="bg-black/50 rounded-full p-4">
+                          <div className="text-white text-4xl">▶</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
                 {/* feature.mp4 */}
                 <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
                   <div className="relative aspect-video">
-                    <div className="absolute z-20 top-3 right-3">
+                    <div className="absolute z-20 top-3 right-3 flex gap-2">
                       <button
                         type="button"
                         aria-label={aboutMuted3 ? 'Unmute video' : 'Mute video'}
@@ -350,27 +376,34 @@ export default function Home() {
                         }}
                         className="neo-button text-xs px-2.5 py-1 rounded-full text-purple-100 hover:text-white"
                       >
-                        {aboutMuted3 ? 'Sound Off \ud83d\udd07' : 'Sound On \ud83d\udd0a'}
+                        {aboutMuted3 ? 'Sound Off 🔇' : 'Sound On 🔊'}
                       </button>
                     </div>
                     <video
                       ref={aboutVideoRef3}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover cursor-pointer"
                       src="/feature.mp4"
-                      autoPlay
                       muted={aboutMuted3}
                       loop
                       playsInline
                       preload="metadata"
+                      onClick={() => handleVideoClick(aboutVideoRef3, aboutPlaying3, setAboutPlaying3)}
                     />
                     <div className="absolute inset-0 pointer-events-none about-video-vignette" />
+                    {!aboutPlaying3 && (
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="bg-black/50 rounded-full p-4">
+                          <div className="text-white text-4xl">▶</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
                 {/* crazy1.mp4 */}
                 <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
                   <div className="relative aspect-video">
-                    <div className="absolute z-20 top-3 right-3">
+                    <div className="absolute z-20 top-3 right-3 flex gap-2">
                       <button
                         type="button"
                         aria-label={aboutMuted4 ? 'Unmute video' : 'Mute video'}
@@ -384,20 +417,27 @@ export default function Home() {
                         }}
                         className="neo-button text-xs px-2.5 py-1 rounded-full text-purple-100 hover:text-white"
                       >
-                        {aboutMuted4 ? 'Sound Off \ud83d\udd07' : 'Sound On \ud83d\udd0a'}
+                        {aboutMuted4 ? 'Sound Off 🔇' : 'Sound On 🔊'}
                       </button>
                     </div>
                     <video
                       ref={aboutVideoRef4}
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover cursor-pointer"
                       src="/crazy1.mp4"
-                      autoPlay
                       muted={aboutMuted4}
                       loop
                       playsInline
                       preload="metadata"
+                      onClick={() => handleVideoClick(aboutVideoRef4, aboutPlaying4, setAboutPlaying4)}
                     />
                     <div className="absolute inset-0 pointer-events-none about-video-vignette" />
+                    {!aboutPlaying4 && (
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="bg-black/50 rounded-full p-4">
+                          <div className="text-white text-4xl">▶</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
