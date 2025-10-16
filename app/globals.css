@@ -40,9 +40,19 @@
 
 /* Rainbow underline for nav links */
 .nav-link::after { background: var(--psy-rainbow); }
+/* Hero brand text: light purple with white glow + outline */
+.hero-purple-glow-text {
+  color: #e4b7ff; /* light purple */
+  -webkit-text-stroke: 0.5px rgba(255,255,255,0.9);
+  text-shadow:
+    0 0 6px rgba(255,255,255,0.9),
+    0 0 14px rgba(255,255,255,0.7),
+    0 0 24px rgba(255,255,255,0.5);
+}
 
 
-@theme inline {
+
+:root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -157,8 +167,8 @@ body {
 }
 
 .backface-hidden {
-  backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Navigation links */

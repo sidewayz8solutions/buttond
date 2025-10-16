@@ -46,8 +46,6 @@ function RotatingLogo({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
         map={texture}
         transparent
         side={THREE.DoubleSide}
-        emissive="#c178ff"
-        emissiveIntensity={0.2}
       />
     </mesh>
   );
@@ -175,7 +173,7 @@ export default function Hero3D() {
       {/* Overlay Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
         <div className="text-center space-y-6 px-4">
-          <h1 className="font-script text-6xl md:text-8xl lg:text-9xl psy-rainbow-text animate-fade-in">
+          <h1 className="font-script text-6xl md:text-8xl lg:text-9xl hero-purple-glow-text animate-fade-in">
             Button'd
           </h1>
           <p className="text-xl md:text-2xl text-white/80 animate-fade-in-delay">
