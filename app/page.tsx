@@ -94,6 +94,8 @@ export default function Home() {
 
   const servicesVideoRef = useRef<HTMLVideoElement>(null);
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
+  const [servicesMuted, setServicesMuted] = useState(true);
+  const [aboutMuted, setAboutMuted] = useState(true);
 
   useEffect(() => {
     const el1 = servicesVideoRef.current;
@@ -192,19 +194,35 @@ export default function Home() {
           {/* Background video: a.mp4 */}
           <video
             ref={servicesVideoRef}
-            className="absolute inset-0 w-full h-full object-cover opacity-25"
+            className="absolute inset-0 w-full h-full object-cover opacity-50 transform scale-95"
             src="/a.mp4"
             autoPlay
-            muted
+            muted={servicesMuted}
             loop
             playsInline
             preload="metadata"
           />
           {/* Dark gradient overlay for legibility */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.4), rgba(0,0,0,0.85))' }}
-          />
+          <div className="absolute inset-0 pointer-events-none services-video-overlay" />
+
+          {/* Audio toggle */}
+          <div className="absolute z-20 top-4 right-4">
+            <button
+              type="button"
+              aria-label={servicesMuted ? 'Unmute background video' : 'Mute background video'}
+              onClick={() => {
+                const next = !servicesMuted;
+                setServicesMuted(next);
+                if (servicesVideoRef.current) {
+                  servicesVideoRef.current.muted = next;
+                  if (!next) servicesVideoRef.current.volume = 0.6;
+                }
+              }}
+              className="neo-button text-sm px-3 py-1.5 rounded-full text-purple-100 hover:text-white"
+            >
+              {servicesMuted ? 'Sound Off 🔇' : 'Sound On 🔊'}
+            </button>
+          </div>
 
           <div className="relative z-10 max-w-7xl mx-auto">
             <AnimatedSection>
@@ -268,20 +286,36 @@ export default function Home() {
             <AnimatedSection delay={0.35}>
               <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20 mt-10">
                 <div className="relative aspect-video">
+                  {/* Audio toggle */}
+                  <div className="absolute z-20 top-3 right-3">
+                    <button
+                      type="button"
+                      aria-label={aboutMuted ? 'Unmute video' : 'Mute video'}
+                      onClick={() => {
+                        const next = !aboutMuted;
+                        setAboutMuted(next);
+                        if (aboutVideoRef.current) {
+                          aboutVideoRef.current.muted = next;
+                          if (!next) aboutVideoRef.current.volume = 0.6;
+                        }
+                      }}
+                      className="neo-button text-xs px-2.5 py-1 rounded-full text-purple-100 hover:text-white"
+                    >
+                      {aboutMuted ? 'Sound Off \ud83d\udd07' : 'Sound On \ud83d\udd0a'}
+                    </button>
+                  </div>
+
                   <video
                     ref={aboutVideoRef}
                     className="absolute inset-0 w-full h-full object-cover"
                     src="/time.mp4"
                     autoPlay
-                    muted
+                    muted={aboutMuted}
                     loop
                     playsInline
                     preload="metadata"
                   />
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{ boxShadow: 'inset 0 0 80px rgba(0,0,0,0.45)' }}
-                  />
+                  <div className="absolute inset-0 pointer-events-none about-video-vignette" />
                 </div>
               </div>
             </AnimatedSection>
@@ -294,17 +328,7 @@ export default function Home() {
       <ParallaxLayers>
         <section id="gallery" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
           {/* Background image: b.jpg */}
-          <div
-            className="absolute inset-0 z-0 pointer-events-none"
-            style={{
-              backgroundImage: "url('/b.jpg')",
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              opacity: 0.12,
-              mixBlendMode: 'screen',
-              filter: 'blur(2px)'
-            }}
-          />
+          <div className="absolute inset-0 z-0 pointer-events-none gallery-b-bg opacity-20 blur-sm" />
 
           <div className="relative z-10 max-w-7xl mx-auto">
             <AnimatedSection>
