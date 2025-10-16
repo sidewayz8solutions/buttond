@@ -278,3 +278,18 @@ html {
     scroll-behavior: auto;
   }
 }
+
+/* Media helpers */
+.services-video-overlay{
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.4), rgba(0,0,0,0.85));
+}
+.about-video-vignette{
+  box-shadow: inset 0 0 80px rgba(0,0,0,0.45);
+}
+.gallery-b-bg{
+  background-image: url('/b.jpg');
+  background-size: cover;
+  background-position: bottom center;
+  mix-blend-mode: screen;
+}
+
