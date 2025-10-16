@@ -187,7 +187,7 @@ export default function Home() {
           <video
             ref={servicesVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
-            src="/b.mp4"
+            src="/background.mp4"
             autoPlay
             muted={servicesMuted}
             loop
