@@ -41,7 +41,7 @@ function RotatingLogo({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
 
   return (
     <mesh ref={meshRef}>
-      <planeGeometry args={[6, 6]} />
+      <planeGeometry args={[5.2, 3.2]} />
       <meshStandardMaterial
         map={texture}
         transparent
