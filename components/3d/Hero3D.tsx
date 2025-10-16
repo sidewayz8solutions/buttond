@@ -21,7 +21,7 @@ import {
 
 function RotatingLogo({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
-  const texture = useTexture('/button.png');
+  const texture = useTexture('/buttond11.png');
   
   useFrame((state) => {
     if (!meshRef.current) return;
