@@ -278,8 +278,8 @@ export default function Home() {
             <AnimatedSection delay={0.35}>
               <div className="flex flex-col gap-10 mt-10">
                 {/* time.mp4 */}
-                <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
-                  <div className="relative aspect-video">
+                <div className="neo-card rounded-3xl p-3 md:p-5 overflow-hidden border border-black/60 bg-black shadow-2xl">
+                  <div className="relative aspect-video md:aspect-[21/9] bg-black">
                     <div className="absolute z-20 top-3 right-3 flex gap-2">
                       <button
                         type="button"
