@@ -183,11 +183,11 @@ export default function Home() {
       {/* Services Section with 3D Cards */}
       <ParallaxLayers>
         <section id="services" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
-          {/* Background video: c.mp4 */}
+          {/* Background video: background.mp4 */}
           <video
             ref={servicesVideoRef}
             className="absolute inset-0 w-full h-full object-cover opacity-50 transform scale-95"
-            src="/c.mp4"
+            src="/background.mp4"
             autoPlay
             muted={servicesMuted}
             loop
