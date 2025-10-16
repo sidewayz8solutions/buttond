@@ -117,15 +117,26 @@ function GlowingSphere() {
 
 function ParticleField() {
   const particlesRef = useRef<THREE.Points>(null);
-  const particleCount = 800;
-  
-  const positions = new Float32Array(particleCount * 3);
-  for (let i = 0; i < particleCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 20;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 10 - 5;
-  }
-  
+
+  // Adapt particle count to device DPR; memoize buffers
+  const particleCount = useMemo(() => {
+    if (typeof window !== 'undefined') {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      return dpr > 1.5 ? 600 : 800;
+    }
+    return 800;
+  }, []);
+
+  const positions = useMemo(() => {
+    const arr = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      arr[i * 3] = (Math.random() - 0.5) * 20;
+      arr[i * 3 + 1] = (Math.random() - 0.5) * 20;
+      arr[i * 3 + 2] = (Math.random() - 0.5) * 10 - 5;
+    }
+    return arr;
+  }, [particleCount]);
+
   useFrame((state) => {
     if (!particlesRef.current) return;
     particlesRef.current.rotation.y = state.clock.elapsedTime * 0.02;
@@ -134,10 +145,7 @@ function ParticleField() {
   return (
     <points ref={particlesRef}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
         size={0.02}
@@ -145,6 +153,7 @@ function ParticleField() {
         transparent
         opacity={0.7}
         sizeAttenuation
+        depthWrite={false}
       />
     </points>
   );
@@ -182,6 +191,7 @@ export default function Hero3D() {
           alpha: true,
           powerPreference: "high-performance"
         }}
+        dpr={[1, 1.5]}
         onCreated={({ gl }) => { gl.toneMappingExposure = 1.15; }}
       >
         <PerspectiveCamera makeDefault position={[0, 0, 8]} />
