@@ -1,6 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 interface ParallaxLayersProps {
   children: React.ReactNode;
@@ -43,8 +47,17 @@ export default function ParallaxLayers({ children, className = '' }: ParallaxLay
           opacity: 0.3
         }}
       >
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-purple-600/20 blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-pink-600/20 blur-3xl" />
+        {/* orange sun + pink cloud */}
+        <div
+          className="absolute top-1/4 left-[15%] w-[28rem] h-[28rem] rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(circle at 40% 40%, var(--psy-orange), transparent 60%)' }}
+        />
+        <div
+          className="absolute bottom-1/4 right-[15%] w-[26rem] h-[26rem] rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(circle at 60% 60%, var(--psy-pink), transparent 60%)' }}
+        />
+        {/* subtle starfield */}
+        <div className="absolute inset-0 psy-starfield" />
       </div>
 
       {/* Background Layer 2 - Medium */}
@@ -55,8 +68,14 @@ export default function ParallaxLayers({ children, className = '' }: ParallaxLay
           opacity: 0.2
         }}
       >
-        <div className="absolute top-1/3 right-1/3 w-64 h-64 rounded-full bg-purple-500/30 blur-2xl" />
-        <div className="absolute bottom-1/3 left-1/3 w-64 h-64 rounded-full bg-blue-500/30 blur-2xl" />
+        <div
+          className="absolute top-1/3 right-1/3 w-64 h-64 rounded-full blur-2xl"
+          style={{ background: 'radial-gradient(circle, var(--psy-teal), transparent 60%)' }}
+        />
+        <div
+          className="absolute bottom-1/3 left-1/3 w-64 h-64 rounded-full blur-2xl"
+          style={{ background: 'radial-gradient(circle, var(--psy-blue), transparent 60%)' }}
+        />
       </div>
 
       {/* Background Layer 3 - Fastest */}
@@ -67,7 +86,10 @@ export default function ParallaxLayers({ children, className = '' }: ParallaxLay
           opacity: 0.1
         }}
       >
-        <div className="absolute top-1/2 left-1/2 w-48 h-48 rounded-full bg-pink-500/40 blur-xl" />
+        <div
+          className="absolute top-1/2 left-1/2 w-56 h-56 rounded-full blur-xl"
+          style={{ background: 'conic-gradient(from 0deg, var(--psy-pink), var(--psy-orange), var(--psy-yellow), var(--psy-lime), var(--psy-teal), var(--psy-cyan), var(--psy-blue), var(--psy-purple), var(--psy-pink))' }}
+        />
       </div>
 
       {/* Content */}
