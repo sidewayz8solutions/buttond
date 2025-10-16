@@ -183,11 +183,11 @@ export default function Home() {
       {/* Services Section with 3D Cards */}
       <ParallaxLayers>
         <section id="services" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
-          {/* Background video: b.mp4 */}
+          {/* Background video: c.mp4 */}
           <video
             ref={servicesVideoRef}
             className="absolute inset-0 w-full h-full object-cover opacity-50 transform scale-95"
-            src="/b.mp4"
+            src="/c.mp4"
             autoPlay
             muted={servicesMuted}
             loop
@@ -299,7 +299,7 @@ export default function Home() {
                     </div>
                     <video
                       ref={aboutVideoRef}
-                      className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+                      className="absolute inset-0 w-full h-full object-contain cursor-pointer"
                       src="/time.mp4"
                       muted={aboutMuted}
                       loop
@@ -340,7 +340,7 @@ export default function Home() {
                     </div>
                     <video
                       ref={aboutVideoRef2}
-                      className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+                      className="absolute inset-0 w-full h-full object-contain cursor-pointer"
                       src="/a.mp4"
                       muted={aboutMuted2}
                       loop
@@ -381,7 +381,7 @@ export default function Home() {
                     </div>
                     <video
                       ref={aboutVideoRef3}
-                      className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+                      className="absolute inset-0 w-full h-full object-contain cursor-pointer"
                       src="/feature.mp4"
                       muted={aboutMuted3}
                       loop
@@ -422,7 +422,7 @@ export default function Home() {
                     </div>
                     <video
                       ref={aboutVideoRef4}
-                      className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+                      className="absolute inset-0 w-full h-full object-contain cursor-pointer"
                       src="/crazy1.mp4"
                       muted={aboutMuted4}
                       loop
