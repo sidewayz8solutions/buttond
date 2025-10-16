@@ -5,6 +5,42 @@
   --foreground: #ededed;
   --neon-intensity: 1;
 }
+/* Psychedelic theme palette derived from reference */
+:root {
+  --psy-bg: #05060a;
+  --psy-pink: #ff4fa3;
+  --psy-orange: #ff9d2e;
+  --psy-yellow: #ffd166;
+  --psy-lime: #39ff88;
+  --psy-teal: #2ee6a6;
+  --psy-cyan: #4fd8ff;
+  --psy-blue: #5b7fff;
+  --psy-purple: #c178ff;
+  --psy-rainbow: linear-gradient(90deg, var(--psy-pink), var(--psy-orange), var(--psy-yellow), var(--psy-lime), var(--psy-teal), var(--psy-cyan), var(--psy-blue), var(--psy-purple));
+}
+
+/* Rainbow text fill */
+.psy-rainbow-text {
+  background: var(--psy-rainbow);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Starfield background overlay */
+.psy-starfield {
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,.8), transparent),
+    radial-gradient(1.5px 1.5px at 130px 80px, rgba(255,255,255,.7), transparent),
+    radial-gradient(1.5px 1.5px at 50px 150px, rgba(255,255,255,.6), transparent),
+    radial-gradient(2px 2px at 180px 120px, rgba(255,255,255,.9), transparent);
+  background-size: 200px 200px; /* tiles */
+  opacity: .6;
+}
+
+/* Rainbow underline for nav links */
+.nav-link::after { background: var(--psy-rainbow); }
+
 
 @theme inline {
   --color-background: var(--background);
@@ -21,8 +57,8 @@ body {
 }
 
 /* Brand styling */
-.font-script { 
-  font-family: var(--font-script), cursive; 
+.font-script {
+  font-family: var(--font-script), cursive;
 }
 
 /* Neon text effects with intensity control */
@@ -57,7 +93,7 @@ body {
 .neo-card {
   background: linear-gradient(145deg, #0f0f11, #1a1a1c);
   border: 1px solid rgba(255,255,255,.06);
-  box-shadow: 
+  box-shadow:
     12px 12px 24px rgba(0,0,0,.8),
     -12px -12px 24px rgba(40,40,40,.3),
     inset 0 0 0 1px rgba(255,255,255,.02);
@@ -66,7 +102,7 @@ body {
 .neo-card-back {
   background: linear-gradient(145deg, #1a1a1c, #0f0f11);
   border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 
+  box-shadow:
     -12px -12px 24px rgba(0,0,0,.8),
     12px 12px 24px rgba(40,40,40,.3);
 }
@@ -74,21 +110,21 @@ body {
 .neo-button {
   background: linear-gradient(145deg, #1a1a1c, #0f0f11);
   border: 1px solid rgba(255,255,255,.1);
-  box-shadow: 
+  box-shadow:
     6px 6px 12px rgba(0,0,0,.6),
     -6px -6px 12px rgba(40,40,40,.2);
   transition: all .3s ease;
 }
 
 .neo-button:hover {
-  box-shadow: 
+  box-shadow:
     8px 8px 16px rgba(0,0,0,.7),
     -8px -8px 16px rgba(40,40,40,.3),
     0 0 20px rgba(193,120,255,.2);
 }
 
 .neo-button:active {
-  box-shadow: 
+  box-shadow:
     inset 4px 4px 8px rgba(0,0,0,.7),
     inset -4px -4px 8px rgba(40,40,40,.2);
 }
@@ -97,7 +133,7 @@ body {
   background: rgba(15,15,17,.95);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(0,0,0,.5),
     inset 0 -1px 0 rgba(255,255,255,.05);
 }
@@ -160,14 +196,14 @@ body {
   background: linear-gradient(145deg, #1a1a1c, #0f0f11);
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 9999px;
-  box-shadow: 
+  box-shadow:
     8px 8px 16px rgba(0,0,0,.6),
     -8px -8px 16px rgba(40,40,40,.2);
   transition: all .3s ease;
 }
 
 .contact-button:hover {
-  box-shadow: 
+  box-shadow:
     10px 10px 20px rgba(0,0,0,.7),
     -10px -10px 20px rgba(40,40,40,.3),
     0 0 30px rgba(193,120,255,.3);
@@ -209,7 +245,7 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  
+
   .animate-fade-in,
   .animate-fade-in-delay {
     animation: none;

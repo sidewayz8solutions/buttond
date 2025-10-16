@@ -105,9 +105,9 @@ function ParticleField() {
       </bufferGeometry>
       <pointsMaterial
         size={0.05}
-        color="#c178ff"
+        color="#ffffff"
         transparent
-        opacity={0.6}
+        opacity={0.7}
         sizeAttenuation
       />
     </points>
@@ -149,17 +149,19 @@ export default function Hero3D() {
       >
         <PerspectiveCamera makeDefault position={[0, 0, 8]} />
         
-        {/* Lighting */}
-        <ambientLight intensity={0.3} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#c178ff" />
-        <pointLight position={[-10, -10, -5]} intensity={0.5} color="#ff78c1" />
+        {/* Lighting - psychedelic multi-color */}
+        <ambientLight intensity={0.25} />
+        <pointLight position={[10, 10, 10]} intensity={0.7} color="#ff4fa3" />
+        <pointLight position={[-10, 5, 5]} intensity={0.6} color="#ff9d2e" />
+        <pointLight position={[5, -8, -2]} intensity={0.6} color="#2ee6a6" />
         <spotLight
-          position={[0, 5, 5]}
-          angle={0.3}
+          position={[0, 6, 6]}
+          angle={0.35}
           penumbra={1}
-          intensity={1}
-          color="#b478ff"
+          intensity={0.9}
+          color="#4fd8ff"
         />
+        <pointLight position={[0, 0, -8]} intensity={0.4} color="#c178ff" />
         
         {/* 3D Elements */}
         {!reducedMotion && <ParticleField />}
@@ -173,10 +175,10 @@ export default function Hero3D() {
       {/* Overlay Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
         <div className="text-center space-y-6 px-4">
-          <h1 className="font-script text-6xl md:text-8xl lg:text-9xl neon-text animate-fade-in">
+          <h1 className="font-script text-6xl md:text-8xl lg:text-9xl psy-rainbow-text animate-fade-in">
             Button'd
           </h1>
-          <p className="text-xl md:text-2xl text-purple-200/80 animate-fade-in-delay">
+          <p className="text-xl md:text-2xl text-white/80 animate-fade-in-delay">
             Revolutionizing Brands Through Design
           </p>
         </div>

@@ -1,6 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 export default function CursorGlow() {
   const [position, setPosition] = useState({ x: -100, y: -100 });
@@ -64,7 +68,7 @@ export default function CursorGlow() {
           transform: 'translate(-50%, -50%)',
           width: '300px',
           height: '300px',
-          background: 'radial-gradient(circle, rgba(193,120,255,0.3) 0%, rgba(193,120,255,0.1) 30%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255,79,163,0.25) 0%, rgba(79,216,255,0.18) 25%, rgba(91,127,255,0.14) 45%, transparent 70%)',
           filter: 'blur(40px)',
           transition: 'opacity 0.3s ease'
         }}
@@ -79,7 +83,7 @@ export default function CursorGlow() {
           transform: 'translate(-50%, -50%)',
           width: '100px',
           height: '100px',
-          background: 'radial-gradient(circle, rgba(255,120,193,0.4) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255,157,46,0.45) 0%, rgba(39,255,136,0.35) 40%, transparent 70%)',
           filter: 'blur(20px)'
         }}
       />
@@ -93,7 +97,7 @@ export default function CursorGlow() {
           transform: 'translate(-50%, -50%)',
           width: '8px',
           height: '8px',
-          background: '#c178ff',
+          background: 'white',
           borderRadius: '50%',
           boxShadow: '0 0 10px rgba(193,120,255,0.8)'
         }}
