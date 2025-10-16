@@ -93,22 +93,21 @@ export default function Home() {
     },
   ];
 
-  const servicesVideoRef = useRef<HTMLVideoElement>(null);
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
-  const [servicesMuted, setServicesMuted] = useState(true);
   const [aboutMuted, setAboutMuted] = useState(true);
   const aboutVideoRef2 = useRef<HTMLVideoElement>(null);
   const aboutVideoRef3 = useRef<HTMLVideoElement>(null);
   const [aboutMuted2, setAboutMuted2] = useState(true);
   const [aboutMuted3, setAboutMuted3] = useState(true);
-
+  const aboutVideoRef4 = useRef<HTMLVideoElement>(null);
+  const [aboutMuted4, setAboutMuted4] = useState(true);
 
   useEffect(() => {
     const videos = [
-      servicesVideoRef.current,
       aboutVideoRef.current,
       aboutVideoRef2.current,
       aboutVideoRef3.current,
+      aboutVideoRef4.current,
     ].filter(Boolean) as HTMLVideoElement[];
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -199,38 +198,11 @@ export default function Home() {
       {/* Services Section with 3D Cards */}
       <ParallaxLayers>
         <section id="services" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
-          {/* Background video: a.mp4 */}
-          <video
-            ref={servicesVideoRef}
-            className="absolute inset-0 w-full h-full object-cover opacity-50 transform scale-95"
-            src="/e.mp4"
-            autoPlay
-            muted={servicesMuted}
-            loop
-            playsInline
-            preload="metadata"
-          />
+          {/* Background image: b.png */}
+          <div className="absolute inset-0 z-0 pointer-events-none services-b-bg opacity-20 blur-sm" />
+
           {/* Dark gradient overlay for legibility */}
           <div className="absolute inset-0 pointer-events-none services-video-overlay" />
-
-          {/* Audio toggle */}
-          <div className="absolute z-20 top-4 right-4">
-            <button
-              type="button"
-              aria-label={servicesMuted ? 'Unmute background video' : 'Mute background video'}
-              onClick={() => {
-                const next = !servicesMuted;
-                setServicesMuted(next);
-                if (servicesVideoRef.current) {
-                  servicesVideoRef.current.muted = next;
-                  if (!next) servicesVideoRef.current.volume = 0.6;
-                }
-              }}
-              className="neo-button text-sm px-3 py-1.5 rounded-full text-purple-100 hover:text-white"
-            >
-              {servicesMuted ? 'Sound Off 🔇' : 'Sound On 🔊'}
-            </button>
-          </div>
 
           <div className="relative z-10 max-w-7xl mx-auto">
             <AnimatedSection>
@@ -292,7 +264,7 @@ export default function Home() {
               </div>
             </AnimatedSection>
             <AnimatedSection delay={0.35}>
-              <div className="grid gap-8 md:grid-cols-3 mt-10">
+              <div className="flex flex-col gap-10 mt-10">
                 {/* time.mp4 */}
                 <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
                   <div className="relative aspect-video">
@@ -387,6 +359,40 @@ export default function Home() {
                       src="/feature.mp4"
                       autoPlay
                       muted={aboutMuted3}
+                      loop
+                      playsInline
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 pointer-events-none about-video-vignette" />
+                  </div>
+                </div>
+
+                {/* crazy1.mp4 */}
+                <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
+                  <div className="relative aspect-video">
+                    <div className="absolute z-20 top-3 right-3">
+                      <button
+                        type="button"
+                        aria-label={aboutMuted4 ? 'Unmute video' : 'Mute video'}
+                        onClick={() => {
+                          const next = !aboutMuted4;
+                          setAboutMuted4(next);
+                          if (aboutVideoRef4.current) {
+                            aboutVideoRef4.current.muted = next;
+                            if (!next) aboutVideoRef4.current.volume = 0.6;
+                          }
+                        }}
+                        className="neo-button text-xs px-2.5 py-1 rounded-full text-purple-100 hover:text-white"
+                      >
+                        {aboutMuted4 ? 'Sound Off \ud83d\udd07' : 'Sound On \ud83d\udd0a'}
+                      </button>
+                    </div>
+                    <video
+                      ref={aboutVideoRef4}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      src="/crazy1.mp4"
+                      autoPlay
+                      muted={aboutMuted4}
                       loop
                       playsInline
                       preload="metadata"
