@@ -1,6 +1,10 @@
 "use client";
 
-import { Suspense } from 'react';
+import {
+  Suspense,
+  useEffect,
+  useRef,
+} from 'react';
 
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -33,7 +37,7 @@ type Service = {
 
 function ServiceCardWrapper({ service, index }: { service: Service; index: number }) {
   const { trackInteraction } = useServiceTracking(service.title);
-  
+
   return (
     <ServiceCard3D
       {...service}
@@ -88,13 +92,47 @@ export default function Home() {
     },
   ];
 
+  const servicesVideoRef = useRef<HTMLVideoElement>(null);
+  const aboutVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el1 = servicesVideoRef.current;
+    const el2 = aboutVideoRef.current;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      el1?.pause();
+      el2?.pause();
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const v = entry.target as HTMLVideoElement;
+        if (entry.isIntersecting) {
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.2 });
+
+    if (el1) observer.observe(el1);
+    if (el2) observer.observe(el2);
+
+    return () => {
+      if (el1) observer.unobserve(el1);
+      if (el2) observer.unobserve(el2);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Custom Cursor Glow */}
       <CursorGlow />
 
       {/* Navigation */}
-      <motion.nav 
+      <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
@@ -123,7 +161,7 @@ export default function Home() {
         }>
           <Hero3D />
         </Suspense>
-        
+
         {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -150,8 +188,25 @@ export default function Home() {
 
       {/* Services Section with 3D Cards */}
       <ParallaxLayers>
-        <section id="services" className="py-32 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+        <section id="services" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
+          {/* Background video: a.mp4 */}
+          <video
+            ref={servicesVideoRef}
+            className="absolute inset-0 w-full h-full object-cover opacity-25"
+            src="/a.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+          />
+          {/* Dark gradient overlay for legibility */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.4), rgba(0,0,0,0.85))' }}
+          />
+
+          <div className="relative z-10 max-w-7xl mx-auto">
             <AnimatedSection>
               <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 neon-text">
                 Our Services
@@ -210,14 +265,48 @@ export default function Home() {
                 </div>
               </div>
             </AnimatedSection>
+            <AnimatedSection delay={0.35}>
+              <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20 mt-10">
+                <div className="relative aspect-video">
+                  <video
+                    ref={aboutVideoRef}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    src="/time.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                  />
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ boxShadow: 'inset 0 0 80px rgba(0,0,0,0.45)' }}
+                  />
+                </div>
+              </div>
+            </AnimatedSection>
+
           </div>
         </section>
       </ParallaxLayers>
 
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
-        <section id="gallery" className="py-32 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+        <section id="gallery" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
+          {/* Background image: b.jpg */}
+          <div
+            className="absolute inset-0 z-0 pointer-events-none"
+            style={{
+              backgroundImage: "url('/b.jpg')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: 0.12,
+              mixBlendMode: 'screen',
+              filter: 'blur(2px)'
+            }}
+          />
+
+          <div className="relative z-10 max-w-7xl mx-auto">
             <AnimatedSection>
               <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 neon-text">
                 Our Work
@@ -267,7 +356,7 @@ export default function Home() {
                   <span className="text-3xl group-hover:scale-110 transition-transform inline-block">📧</span>
                   <span className="neon-contact">benjamin@buttond.com</span>
                 </motion.a>
-                
+
                 <motion.a
                   href="tel:+12253019908"
                   className="contact-button group"
