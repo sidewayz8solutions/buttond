@@ -120,8 +120,8 @@ function GlowingSphere() {
   });
 
   return (
-    <mesh ref={sphereRef} position={[-1.2, 0.6, -2]}>
-      <sphereGeometry args={[2.6, 72, 72]} />
+    <mesh ref={sphereRef} position={[0, 0, -5]}>
+      <sphereGeometry args={[1.4, 72, 72]} />
       <meshStandardMaterial
         color="#d9d9d9"
         map={moonTexture || undefined}
@@ -145,9 +145,10 @@ function ParticleField() {
   const particleCount = useMemo(() => {
     if (typeof window !== 'undefined') {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      return dpr > 1.5 ? 600 : 900; // slightly more to keep density across full screen
+      // Massive particle density for a rich starfield
+      return dpr > 1.5 ? 2500 : 3500;
     }
-    return 800;
+    return 2500;
   }, []);
 
   // Compute screen-space width/height in world units at a reference depth behind the logo
@@ -183,10 +184,10 @@ function ParticleField() {
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
-        size={0.01}
+        size={0.008}
         color="#ffffff"
         transparent
-        opacity={0.7}
+        opacity={0.65}
         sizeAttenuation
         depthWrite={false}
       />
