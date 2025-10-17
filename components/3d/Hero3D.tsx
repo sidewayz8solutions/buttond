@@ -121,7 +121,7 @@ function GlowingSphere() {
 
   return (
     <mesh ref={sphereRef} position={[0, 0, -5]}>
-      <sphereGeometry args={[1.4, 72, 72]} />
+      <sphereGeometry args={[2.2, 72, 72]} />
       <meshStandardMaterial
         color="#d9d9d9"
         map={moonTexture || undefined}
@@ -187,7 +187,7 @@ function ParticleField() {
         size={0.008}
         color="#ffffff"
         transparent
-        opacity={0.65}
+        opacity={0.95}
         sizeAttenuation
         depthWrite={false}
       />
@@ -248,9 +248,13 @@ export default function Hero3D() {
       {/* Overlay Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
         <div className="text-center space-y-6 px-4">
-          <h1 className="font-script text-6xl md:text-8xl lg:text-9xl hero-purple-glow-text animate-fade-in">
-            Button'd
-          </h1>
+          <div className="relative inline-block">
+            {/* Dark highlight background behind Button'd */}
+            <div className="absolute inset-0 bg-black/40 blur-2xl rounded-full scale-110 -z-10"></div>
+            <h1 className="relative font-script text-6xl md:text-8xl lg:text-9xl hero-purple-glow-text animate-fade-in">
+              Button'd
+            </h1>
+          </div>
           <p className="text-xl md:text-2xl text-white/80 animate-fade-in-delay">
             Design Your Path, Define Your Future
           </p>
