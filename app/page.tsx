@@ -13,6 +13,7 @@ import GalleryCard3D from '@/components/3d/GalleryCard3D';
 import ServiceCard3D from '@/components/3d/ServiceCard3D';
 import CursorGlow from '@/components/effects/CursorGlow';
 import ParallaxLayers from '@/components/effects/ParallaxLayers';
+import NeonCursor from '@/components/NeonCursor';
 import PersonalizationEngine, {
   useServiceTracking,
 } from '@/components/personalization/PersonalizationEngine';
@@ -91,8 +92,8 @@ export default function Home() {
       imageSrc: "/s8.png"
     },
     {
-      name: "Coming Soon",
-      description: "Brand and website design",
+      name: "Smart ATS Resume",
+      description: "A Resume Builder with a specialized score card designed to beat the ATS everytime. We guarantee it! ",
       imageSrc: "/ass.png"
     },
     {
@@ -143,6 +144,9 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Custom Cursor Glow */}
       <CursorGlow />
+
+      {/* Neon fluid cursor */}
+      <NeonCursor />
 
       {/* Navigation */}
       <motion.nav
