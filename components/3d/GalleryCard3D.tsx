@@ -18,6 +18,7 @@ interface GalleryCard3DProps {
   title: string;
   description: string;
   imageSrc?: string;
+  backVideoSrc?: string;
   index: number;
 }
 
@@ -25,11 +26,23 @@ export default function GalleryCard3D({
   title,
   description,
   imageSrc,
+  backVideoSrc,
   index
 }: GalleryCard3DProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
+  const backVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!backVideoRef.current) return;
+    if (isFlipped) {
+      backVideoRef.current.play().catch(() => {});
+    } else {
+      backVideoRef.current.pause();
+      backVideoRef.current.currentTime = 0;
+    }
+  }, [isFlipped]);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -142,10 +155,26 @@ export default function GalleryCard3D({
           transition={{ duration: 0.6, ease: 'easeInOut' }}
           style={{ transform: 'rotateY(180deg)' }}
         >
-          <div className="neo-card glass-card rounded-2xl w-full h-full flex flex-col items-center justify-center p-8 text-center">
-            <h3 className="text-xl font-bold text-white mb-3 neon-text-subtle">{title}</h3>
-            <p className="text-purple-100/80 leading-relaxed mb-6 max-w-sm">{description}</p>
-            <div className="text-sm text-purple-300/60">Click to flip back</div>
+          <div className="neo-card glass-card rounded-2xl w-full h-full overflow-hidden flex flex-col">
+            {backVideoSrc ? (
+              <div className="relative h-64 bg-black/40">
+                <video
+                  ref={backVideoRef}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  src={backVideoSrc}
+                  muted
+                  loop
+                  playsInline
+                  autoPlay
+                  preload="metadata"
+                />
+              </div>
+            ) : null}
+            <div className="p-6 text-center">
+              <h3 className="text-xl font-bold text-white mb-3 neon-text-subtle">{title}</h3>
+              <p className="text-purple-100/80 leading-relaxed mb-4 max-w-sm mx-auto">{description}</p>
+              <div className="text-sm text-purple-300/60">Click to flip back</div>
+            </div>
           </div>
         </motion.div>
       </motion.div>
