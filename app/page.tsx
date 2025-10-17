@@ -49,25 +49,25 @@ function ServiceCardWrapper({ service }: { service: Service }) {
 export default function Home() {
   const services = [
     {
-      icon: "🎨",
+      icon: "buttonpic.png",
       title: "Brand Creation",
       description: "Building powerful brands from the ground up",
       details: "We craft complete brand identities that resonate with your audience. From logo design to brand guidelines, we create cohesive visual systems that tell your story and set you apart from the competition."
     },
     {
-      icon: "🔄",
+      icon: "can.JPG",
       title: "Rebranding",
       description: "Transforming existing brands for modern markets",
       details: "Breathe new life into your brand. We analyze your current position, identify opportunities, and reimagine your brand identity to align with your evolved vision and connect with today's audiences."
     },
     {
-      icon: "💻",
+      icon: "laptop.png",
       title: "Website Development",
       description: "Revolutionary digital experiences that convert",
       details: "We build stunning, high-performance websites that don't just look amazing—they drive results. From e-commerce to portfolios, we create digital experiences that revolutionize how your customers interact with your brand."
     },
     {
-      icon: "🚀",
+      icon: "can.png",
       title: "Digital Strategy",
       description: "Complete digital transformation solutions",
       details: "We help companies revolutionize their entire digital presence. From strategy to execution, we provide comprehensive solutions that modernize your brand and position you for growth in the digital age."
