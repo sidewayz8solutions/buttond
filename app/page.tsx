@@ -90,10 +90,22 @@ export default function Home() {
       description: "Brand and website design",
       imageSrc: "/s8.png"
     },
+    {
+      name: "Coming Soon",
+      description: "Brand and website design",
+      imageSrc: "/puper.png"
+    },
+    {
+      name: "Coming Soon 2",
+      description: "Brand and website design",
+      imageSrc: "/pagemint.png"
+    },
   ];
 
-  const servicesVideoRef = useRef<HTMLVideoElement>(null);
-  const [servicesMuted, setServicesMuted] = useState(true);
+
+  const galleryVideoRef = useRef<HTMLVideoElement>(null);
+  const [galleryMuted, setGalleryMuted] = useState(true);
+
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
   const [aboutMuted, setAboutMuted] = useState(true);
   const [aboutPlaying, setAboutPlaying] = useState(false);
@@ -184,38 +196,16 @@ export default function Home() {
       {/* Services Section with 3D Cards */}
       <ParallaxLayers>
         <section id="services" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
-          {/* Background video: background1.mp4 */}
-          <video
-            ref={servicesVideoRef}
+          {/* Background image: mirror.JPG */}
+          <img
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
-            src="/background1.mp4"
-            autoPlay
-            muted={servicesMuted}
-            loop
-            playsInline
-            preload="metadata"
+            src="/mirror.JPG"
+            alt="Services background"
           />
           {/* Dark gradient overlay for legibility */}
           <div className="absolute inset-0 pointer-events-none services-video-overlay" />
 
-          {/* Audio toggle */}
-          <div className="absolute z-20 top-4 right-4">
-            <button
-              type="button"
-              aria-label={servicesMuted ? 'Unmute background video' : 'Mute background video'}
-              onClick={() => {
-                const next = !servicesMuted;
-                setServicesMuted(next);
-                if (servicesVideoRef.current) {
-                  servicesVideoRef.current.muted = next;
-                  if (!next) servicesVideoRef.current.volume = 0.6;
-                }
-              }}
-              className="neo-button text-sm px-3 py-1.5 rounded-full text-purple-100 hover:text-white"
-            >
-              {servicesMuted ? 'Sound Off 🔇' : 'Sound On 🔊'}
-            </button>
-          </div>
+
 
           <div className="relative z-10 max-w-7xl mx-auto">
             <AnimatedSection>
@@ -485,21 +475,51 @@ export default function Home() {
 
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
-        <section id="gallery" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
-          {/* Background image: b.jpg */}
-          <div className="absolute inset-0 z-0 pointer-events-none gallery-b-bg opacity-20 blur-sm" />
+        <section id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
+          {/* Background video: background1.mp4 */}
+          <video
+            ref={galleryVideoRef}
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
+            src="/background1.mp4"
+            autoPlay
+            muted={galleryMuted}
+            loop
+            playsInline
+            preload="metadata"
+          />
+          {/* Dark gradient overlay for legibility */}
+          <div className="absolute inset-0 pointer-events-none services-video-overlay" />
+
+          {/* Audio toggle */}
+          <div className="absolute z-20 top-4 right-4">
+            <button
+              type="button"
+              aria-label={galleryMuted ? 'Unmute background video' : 'Mute background video'}
+              onClick={() => {
+                const next = !galleryMuted;
+                setGalleryMuted(next);
+                if (galleryVideoRef.current) {
+                  galleryVideoRef.current.muted = next;
+                  if (!next) galleryVideoRef.current.volume = 0.6;
+                }
+              }}
+              className="neo-button text-sm px-3 py-1.5 rounded-full text-purple-100 hover:text-white"
+            >
+              {galleryMuted ? 'Sound Off 🔇' : 'Sound On 🔊'}
+            </button>
+          </div>
 
           <div className="relative z-10 max-w-7xl mx-auto">
             <AnimatedSection>
-              <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 neon-text">
+              <h2 className="text-6xl md:text-7xl font-bold text-center mb-8 neon-text">
                 Our Work
               </h2>
-              <p className="text-center text-purple-200/70 text-lg mb-20 max-w-2xl mx-auto">
+              <p className="text-center text-purple-200/70 text-xl mb-24 max-w-3xl mx-auto">
                 Brands we have revolutionized and websites we have brought to life
               </p>
             </AnimatedSection>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
               {projects.map((project, index) => (
                 <GalleryCard3D
                   key={project.name}
