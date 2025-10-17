@@ -105,17 +105,17 @@ export default function ServiceCard3D({
 
           <div className="mb-6 filter drop-shadow-glow">
             {/(png|jpe?g|gif|webp|svg)$/i.test(icon) ? (
-              <div className="relative w-24 h-24 mx-auto">
+              <div className="relative w-[106px] h-[106px] mx-auto">
                 <Image
                   src={icon.startsWith('/') ? icon : `/${icon}`}
                   alt={`${title} icon`}
                   fill
                   className="object-contain"
-                  sizes="96px"
+                  sizes="106px"
                 />
               </div>
             ) : (
-              <div className="text-7xl">{icon}</div>
+              <div className="text-[79px] leading-none">{icon}</div>
             )}
           </div>
 
