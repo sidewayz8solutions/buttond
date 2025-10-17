@@ -35,12 +35,20 @@ export default function GalleryCard3D({
   const backVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (!backVideoRef.current) return;
+    const v = backVideoRef.current;
+    if (!v) return;
     if (isFlipped) {
-      backVideoRef.current.play().catch(() => {});
+      try {
+        v.currentTime = 0; // restart every flip
+        v.muted = false;
+        v.volume = 1.0;
+        v.play().catch(() => {});
+      } catch {}
     } else {
-      backVideoRef.current.pause();
-      backVideoRef.current.currentTime = 0;
+      try {
+        v.pause();
+        v.currentTime = 0;
+      } catch {}
     }
   }, [isFlipped]);
 
@@ -162,11 +170,8 @@ export default function GalleryCard3D({
                   ref={backVideoRef}
                   className="absolute inset-0 w-full h-full object-cover"
                   src={backVideoSrc}
-                  muted
-                  loop
                   playsInline
-                  autoPlay
-                  preload="metadata"
+                  preload="auto"
                 />
               </div>
             ) : null}
