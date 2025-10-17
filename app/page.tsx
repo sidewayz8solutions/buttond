@@ -67,7 +67,7 @@ export default function Home() {
       details: "We build stunning, high-performance websites that don't just look amazing—they drive results. From e-commerce to portfolios, we create digital experiences that revolutionize how your customers interact with your brand."
     },
     {
-      icon: "can.png",
+      icon: "boss.png",
       title: "Digital Strategy",
       description: "Complete digital transformation solutions",
       details: "We help companies revolutionize their entire digital presence. From strategy to execution, we provide comprehensive solutions that modernize your brand and position you for growth in the digital age."

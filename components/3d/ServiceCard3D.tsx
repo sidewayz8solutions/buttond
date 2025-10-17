@@ -1,7 +1,18 @@
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import {
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
+import Image from 'next/image';
 
 interface ServiceCard3DProps {
   title: string;
@@ -43,11 +54,11 @@ export default function ServiceCard3D({
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (reducedMotion || !cardRef.current) return;
-    
+
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    
+
     mouseX.set(x);
     mouseY.set(y);
   };
@@ -63,7 +74,7 @@ export default function ServiceCard3D({
   };
 
   return (
-    <div 
+    <div
       ref={cardRef}
       className="perspective-container h-[400px]"
       onMouseMove={handleMouseMove}
@@ -91,19 +102,31 @@ export default function ServiceCard3D({
               Recommended
             </div>
           )}
-          
-          <div className="text-7xl mb-6 filter drop-shadow-glow">
-            {icon}
+
+          <div className="mb-6 filter drop-shadow-glow">
+            {/(png|jpe?g|gif|webp|svg)$/i.test(icon) ? (
+              <div className="relative w-24 h-24 mx-auto">
+                <Image
+                  src={icon.startsWith('/') ? icon : `/${icon}`}
+                  alt={`${title} icon`}
+                  fill
+                  className="object-contain"
+                  sizes="96px"
+                />
+              </div>
+            ) : (
+              <div className="text-7xl">{icon}</div>
+            )}
           </div>
-          
+
           <h3 className="text-2xl font-bold text-white mb-3 neon-text-subtle">
             {title}
           </h3>
-          
+
           <p className="text-purple-200/70 leading-relaxed">
             {description}
           </p>
-          
+
           <div className="mt-6 text-sm text-purple-300/50">
             Click to learn more
           </div>
@@ -119,17 +142,17 @@ export default function ServiceCard3D({
           <h3 className="text-2xl font-bold text-white mb-4 neon-text-subtle">
             {title}
           </h3>
-          
+
           <p className="text-purple-100/80 leading-relaxed mb-6">
             {details}
           </p>
-          
+
           <div className="mt-auto">
-            <button className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-purple-400/30 text-purple-100 font-semibold hover:from-purple-600/50 hover:to-pink-600/50 transition-all duration-300">
+            <button type="button" className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-purple-400/30 text-purple-100 font-semibold hover:from-purple-600/50 hover:to-pink-600/50 transition-all duration-300">
               Get Started
             </button>
           </div>
-          
+
           <div className="mt-4 text-sm text-purple-300/50 text-center">
             Click to flip back
           </div>
