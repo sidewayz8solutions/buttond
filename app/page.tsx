@@ -97,7 +97,7 @@ export default function Home() {
     },
     {
       name: "Captain Hook's Jingle Factory",
-      description: "Brand and website design",
+      description: "A Jingle Company that will help your business set sail to the island of Success.",
       imageSrc: "/cap.png",
       backVideoSrc: "/chook.mp4"
     },
