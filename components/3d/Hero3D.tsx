@@ -184,10 +184,10 @@ function ParticleField() {
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
-        size={0.008}
+        size={0.01}
         color="#ffffff"
         transparent
-        opacity={0.95}
+        opacity={1.0}
         sizeAttenuation
         depthWrite={false}
       />
@@ -249,6 +249,10 @@ export default function Hero3D() {
       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
         <div className="text-center space-y-6 px-4">
           <div className="relative inline-block">
+            {/* Moon behind Button'd title */}
+            <div className="absolute inset-0 flex items-center justify-center -z-20">
+              <div className="w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full bg-gradient-radial from-gray-200/30 via-gray-300/20 to-transparent blur-sm"></div>
+            </div>
             {/* Dark highlight background behind Button'd */}
             <div className="absolute inset-0 bg-black/40 blur-2xl rounded-full scale-110 -z-10"></div>
             <h1 className="relative font-script text-6xl md:text-8xl lg:text-9xl hero-purple-glow-text animate-fade-in">
