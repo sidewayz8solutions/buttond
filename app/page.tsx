@@ -355,7 +355,7 @@ export default function Home() {
                       <video
                         ref={aboutVideoRef2}
                         className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-                        src="/a.mp4"
+                        src="/wonka.mp4"
                         muted={aboutMuted2}
                         loop
                         playsInline
@@ -404,7 +404,7 @@ export default function Home() {
                       <video
                         ref={aboutVideoRef4}
                         className="absolute inset-0 w-full h/full object-cover cursor-pointer"
-                        src="/crazy1.mp4"
+                        src="/crazy2.mp4"
                         muted={aboutMuted4}
                         loop
                         playsInline

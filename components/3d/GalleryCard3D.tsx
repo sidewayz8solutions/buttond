@@ -29,6 +29,7 @@ export default function GalleryCard3D({
 }: GalleryCard3DProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -85,46 +86,68 @@ export default function GalleryCard3D({
         viewport={{ once: true }}
         transition={{ delay: index * 0.1, duration: 0.6 }}
         whileHover={reducedMotion ? {} : { scale: 1.05, z: 50 }}
+        onClick={() => setIsFlipped((p) => !p)}
       >
-        <div className="relative neo-card glass-card rounded-2xl overflow-hidden">
-          {/* Hover glow effect */}
-          <motion.div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-            style={{
-              background: `radial-gradient(circle at ${glowX} ${glowY}, rgba(193,120,255,0.3), transparent 50%)`
-            }}
-          />
+        {/* Front */}
+        <motion.div
+          className="absolute inset-0 backface-hidden"
+          animate={{ rotateY: isFlipped ? 180 : 0 }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
+        >
+          <div className="relative neo-card glass-card rounded-2xl overflow-hidden w-full h-full">
+            {/* Hover glow effect */}
+            <motion.div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              style={{
+                background: `radial-gradient(circle at ${glowX} ${glowY}, rgba(193,120,255,0.3), transparent 50%)`
+              }}
+            />
 
-          {/* Image placeholder or actual image */}
-          <div className="relative h-64 bg-gradient-to-br from-purple-900/30 to-pink-900/30 flex items-center justify-center">
-            {imageSrc ? (
-              <Image
-                src={imageSrc}
-                alt={title}
-                fill
-                className="object-cover"
-              />
-            ) : (
-              <div className="text-6xl opacity-50">🎨</div>
-            )}
+            {/* Image placeholder or actual image */}
+            <div className="relative h-64 bg-gradient-to-br from-purple-900/30 to-pink-900/30 flex items-center justify-center">
+              {imageSrc ? (
+                <Image
+                  src={imageSrc}
+                  alt={title}
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <div className="text-6xl opacity-50">🎨</div>
+              )}
+            </div>
+
+            {/* Content */}
+            <div className="p-6">
+              <h3 className="text-xl font-bold text-white mb-2 neon-text-subtle">
+                {title}
+              </h3>
+              <p className="text-purple-200/70 text-sm leading-relaxed">
+                {description}
+              </p>
+            </div>
+
+            {/* 3D depth indicator */}
+            <div
+              className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500/50 to-pink-500/50"
+              style={{ transform: 'translateZ(10px)' }}
+            />
           </div>
+        </motion.div>
 
-          {/* Content */}
-          <div className="p-6">
-            <h3 className="text-xl font-bold text-white mb-2 neon-text-subtle">
-              {title}
-            </h3>
-            <p className="text-purple-200/70 text-sm leading-relaxed">
-              {description}
-            </p>
+        {/* Back */}
+        <motion.div
+          className="absolute inset-0 backface-hidden"
+          animate={{ rotateY: isFlipped ? 0 : -180 }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
+          style={{ transform: 'rotateY(180deg)' }}
+        >
+          <div className="neo-card glass-card rounded-2xl w-full h-full flex flex-col items-center justify-center p-8 text-center">
+            <h3 className="text-xl font-bold text-white mb-3 neon-text-subtle">{title}</h3>
+            <p className="text-purple-100/80 leading-relaxed mb-6 max-w-sm">{description}</p>
+            <div className="text-sm text-purple-300/60">Click to flip back</div>
           </div>
-
-          {/* 3D depth indicator */}
-          <div 
-            className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500/50 to-pink-500/50"
-            style={{ transform: 'translateZ(10px)' }}
-          />
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );
