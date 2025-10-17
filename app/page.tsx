@@ -322,9 +322,9 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* a.mp4 + crazy1.mp4 - portrait side by side */}
+                {/* a.mp4 + crazy2.mp4 - portrait side by side */}
                 <div className="grid grid-cols-1 gap-10">
-                  {/* a.mp4 portrait */}
+                  {/* wonka.mp4 portrait */}
                   <div className="flex justify-center mb-6">
                     <div className="relative px-10 py-5 rounded-2xl wood-plaque">
                       <div className="wood-plaque-sheen"></div>
@@ -373,7 +373,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* crazy1.mp4 portrait */}
+                  {/* crazy2.mp4 portrait */}
                   <div className="flex justify-center mb-6">
                     <div className="relative px-10 py-5 rounded-2xl wood-plaque">
                       <div className="wood-plaque-sheen"></div>
@@ -481,11 +481,11 @@ export default function Home() {
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
         <section id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
-          {/* Background video: background1.mp4 */}
+          {/* Background video: background2.mp4 */}
           <video
             ref={galleryVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
-            src="/background1.mp4"
+            src="/background2.mp4"
             autoPlay
             muted={galleryMuted}
             loop
