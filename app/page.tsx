@@ -184,11 +184,11 @@ export default function Home() {
       {/* Services Section with 3D Cards */}
       <ParallaxLayers>
         <section id="services" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
-          {/* Background video: background.mp4 */}
+          {/* Background video: background1.mp4 */}
           <video
             ref={servicesVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
-            src="/background.mp4"
+            src="/background1.mp4"
             autoPlay
             muted={servicesMuted}
             loop
@@ -279,8 +279,16 @@ export default function Home() {
             <AnimatedSection delay={0.35}>
               <div className="flex flex-col gap-10 mt-10">
                 {/* time.mp4 */}
+                <div className="flex justify-center mb-6">
+                  <div className="relative px-10 py-5 rounded-2xl border-2 border-amber-400 bg-gradient-to-br from-amber-200 via-yellow-300 to-amber-500 shadow-[0_0_40px_rgba(251,191,36,0.8),0_0_80px_rgba(251,191,36,0.4)]">
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-amber-600/20 to-transparent"></div>
+                    <h3 className="relative text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-900 via-amber-800 to-yellow-900 tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] [text-shadow:_0_0_20px_rgb(251_191_36_/_50%)]" style={{ fontFamily: 'Georgia, serif' }}>
+                      A Button Through Time
+                    </h3>
+                  </div>
+                </div>
                 <div className="neo-card rounded-3xl p-3 md:p-5 overflow-hidden border border-black/60 bg-black shadow-2xl">
-                  <div className="relative aspect-[18/9] bg-black">
+                  <div className="relative aspect-[18/15] bg-black">
                     <div className="absolute z-20 top-3 right-3 flex gap-2">
                       <button
                         type="button"
@@ -320,10 +328,18 @@ export default function Home() {
                 </div>
 
                 {/* a.mp4 + crazy1.mp4 - portrait side by side */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 gap-10">
                   {/* a.mp4 portrait */}
-                  <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
-                    <div className="relative aspect-[9/16]">
+                  <div className="flex justify-center mb-6">
+                    <div className="relative px-10 py-5 rounded-2xl border-2 border-amber-400 bg-gradient-to-br from-amber-200 via-yellow-300 to-amber-500 shadow-[0_0_40px_rgba(251,191,36,0.8),0_0_80px_rgba(251,191,36,0.4)]">
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-amber-600/20 to-transparent"></div>
+                      <h3 className="relative text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-900 via-amber-800 to-yellow-900 tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] [text-shadow:_0_0_20px_rgb(251_191_36_/_50%)]" style={{ fontFamily: 'Georgia, serif' }}>
+                        Unlocking Imagination
+                      </h3>
+                    </div>
+                  </div>
+                  <div className="neo-card rounded-3xl p-3 md:p-5 overflow-hidden border border-black/60 bg-black shadow-2xl">
+                    <div className="relative aspect-[18/15] bg-black">
                       <div className="absolute z-20 top-3 right-3 flex gap-2">
                         <button
                           type="button"
@@ -343,7 +359,7 @@ export default function Home() {
                       </div>
                       <video
                         ref={aboutVideoRef2}
-                        className="absolute inset-0 w-full h-full object-contain cursor-pointer"
+                        className="absolute inset-0 w-full h-full object-cover cursor-pointer"
                         src="/a.mp4"
                         muted={aboutMuted2}
                         loop
@@ -363,8 +379,16 @@ export default function Home() {
                   </div>
 
                   {/* crazy1.mp4 portrait */}
-                  <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
-                    <div className="relative aspect-[9/16]">
+                  <div className="flex justify-center mb-6">
+                    <div className="relative px-10 py-5 rounded-2xl border-2 border-amber-400 bg-gradient-to-br from-amber-200 via-yellow-300 to-amber-500 shadow-[0_0_40px_rgba(251,191,36,0.8),0_0_80px_rgba(251,191,36,0.4)]">
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-amber-600/20 to-transparent"></div>
+                      <h3 className="relative text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-900 via-amber-800 to-yellow-900 tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] [text-shadow:_0_0_20px_rgb(251_191_36_/_50%)]" style={{ fontFamily: 'Georgia, serif' }}>
+                        Unbuttoned
+                      </h3>
+                    </div>
+                  </div>
+                  <div className="neo-card rounded-3xl p-3 md:p-5 overflow-hidden border border-black/60 bg-black shadow-2xl w-[60%] mx-auto">
+                    <div className="relative aspect-[9/16] bg-black">
                       <div className="absolute z-20 top-3 right-3 flex gap-2">
                         <button
                           type="button"
@@ -384,7 +408,7 @@ export default function Home() {
                       </div>
                       <video
                         ref={aboutVideoRef4}
-                        className="absolute inset-0 w-full h-full object-contain cursor-pointer"
+                        className="absolute inset-0 w-full h/full object-cover cursor-pointer"
                         src="/crazy1.mp4"
                         muted={aboutMuted4}
                         loop
@@ -405,8 +429,16 @@ export default function Home() {
                 </div>
 
                 {/* feature.mp4 - wide bottom */}
-                <div className="neo-card glass-card rounded-3xl p-0 overflow-hidden border border-purple-400/20">
-                  <div className="relative aspect-video">
+                <div className="flex justify-center mb-6">
+                  <div className="relative px-10 py-5 rounded-2xl border-2 border-amber-400 bg-gradient-to-br from-amber-200 via-yellow-300 to-amber-500 shadow-[0_0_40px_rgba(251,191,36,0.8),0_0_80px_rgba(251,191,36,0.4)]">
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-amber-600/20 to-transparent"></div>
+                    <h3 className="relative text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-900 via-amber-800 to-yellow-900 tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] [text-shadow:_0_0_20px_rgb(251_191_36_/_50%)]" style={{ fontFamily: 'Georgia, serif' }}>
+                      Threading The Atmosphere
+                    </h3>
+                  </div>
+                </div>
+                <div className="neo-card rounded-3xl p-3 md:p-5 overflow-hidden border border-black/60 bg-black shadow-2xl w-[60%] mx-auto">
+                  <div className="relative aspect-[9/16] bg-black">
                     <div className="absolute z-20 top-3 right-3 flex gap-2">
                       <button
                         type="button"

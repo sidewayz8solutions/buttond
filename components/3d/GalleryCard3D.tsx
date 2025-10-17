@@ -1,7 +1,17 @@
 "use client";
 
-import { useRef, useState, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import {
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from 'framer-motion';
 import Image from 'next/image';
 
 interface GalleryCard3DProps {
