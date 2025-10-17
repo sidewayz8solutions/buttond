@@ -93,12 +93,12 @@ export default function Home() {
     {
       name: "Coming Soon",
       description: "Brand and website design",
-      imageSrc: "/puper.png"
+      imageSrc: "/ass.png"
     },
     {
       name: "Coming Soon 2",
       description: "Brand and website design",
-      imageSrc: "/pagemint.png"
+      imageSrc: "/cap.png"
     },
     {
       name: "Company",
