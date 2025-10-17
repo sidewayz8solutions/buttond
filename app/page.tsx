@@ -100,6 +100,11 @@ export default function Home() {
       description: "Brand and website design",
       imageSrc: "/pagemint.png"
     },
+    {
+      name: "Company",
+      description: "Brand and website design",
+      imageSrc: "/company.png"
+    },
   ];
 
 
