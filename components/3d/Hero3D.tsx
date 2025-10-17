@@ -46,7 +46,7 @@ function StaticLogo() {
 function GlowingSphere() {
   const sphereRef = useRef<THREE.Mesh>(null);
 
-  // Procedural "moon" texture using canvas
+  // Procedural "moon" texture using canvas (craters + maria + grain)
   const moonTexture = useMemo(() => {
     const size = 512;
     const canvas = document.createElement('canvas');
@@ -55,29 +55,60 @@ function GlowingSphere() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return null as unknown as THREE.CanvasTexture;
 
-    // Base light gray
-    ctx.fillStyle = '#dcdcdc';
+    // Base mid-gray
+    ctx.fillStyle = '#d8d8d8';
     ctx.fillRect(0, 0, size, size);
 
-    // Draw soft crater-like spots
-    for (let i = 0; i < 700; i++) {
+    // Large maria (dark basalt plains)
+    for (let i = 0; i < 85; i++) {
       const cx = Math.random() * size;
       const cy = Math.random() * size;
-      const r = Math.random() * 18 + 4; // 4-22px
-      const g = ctx.createRadialGradient(cx, cy, r * 0.2, cx, cy, r);
-      const depth = 0.15 + Math.random() * 0.25; // darkness
-      g.addColorStop(0, `rgba(0,0,0,${0.6 * depth})`);
-      g.addColorStop(0.6, `rgba(0,0,0,${0.15 * depth})`);
+      const r = Math.random() * 60 + 30; // 30-90px
+      const g = ctx.createRadialGradient(cx, cy, r * 0.3, cx, cy, r);
+      g.addColorStop(0, 'rgba(60,60,60,0.35)');
       g.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.globalAlpha = 0.6;
+      ctx.globalAlpha = 0.7;
       ctx.fillStyle = g as unknown as string;
       ctx.beginPath();
       ctx.arc(cx, cy, r, 0, Math.PI * 2);
       ctx.fill();
     }
 
+    // Craters with lighter rim + darker core
+    ctx.globalAlpha = 0.9;
+    for (let i = 0; i < 900; i++) {
+      const cx = Math.random() * size;
+      const cy = Math.random() * size;
+      const r = Math.random() * 16 + 3; // 3-19px
+      // dark core
+      const core = ctx.createRadialGradient(cx, cy, r * 0.15, cx, cy, r * 0.8);
+      core.addColorStop(0, 'rgba(0,0,0,0.35)');
+      core.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = core as unknown as string;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fill();
+      // bright rim
+      ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+      ctx.lineWidth = Math.max(1, r * 0.12);
+      ctx.beginPath();
+      ctx.arc(cx, cy, r * 0.9, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    // Subtle grain noise
+    const imgData = ctx.getImageData(0, 0, size, size);
+    const data = imgData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const n = (Math.random() - 0.5) * 8; // ±8
+      data[i] = Math.min(255, Math.max(0, data[i] + n));
+      data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + n));
+      data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + n));
+    }
+    ctx.putImageData(imgData, 0, 0);
+
     const tex = new THREE.CanvasTexture(canvas);
-    tex.anisotropy = 4;
+    tex.anisotropy = 8;
     tex.needsUpdate = true;
     return tex;
   }, []);
@@ -89,17 +120,17 @@ function GlowingSphere() {
   });
 
   return (
-    <mesh ref={sphereRef} position={[0, 0, -2]}>
-      <sphereGeometry args={[2.5, 64, 64]} />
+    <mesh ref={sphereRef} position={[-1.2, 0.6, -2]}>
+      <sphereGeometry args={[2.6, 72, 72]} />
       <meshStandardMaterial
-        color="#efefef"
+        color="#d9d9d9"
         map={moonTexture || undefined}
         bumpMap={moonTexture || undefined}
-        bumpScale={0.08}
-        roughness={0.9}
+        bumpScale={0.12}
+        roughness={1.0}
         metalness={0.0}
-        emissive="#dcdcdc"
-        emissiveIntensity={0.16}
+        emissive="#cfcfcf"
+        emissiveIntensity={0.03}
         wireframe={false}
       />
     </mesh>
@@ -205,7 +236,7 @@ export default function Hero3D() {
         <pointLight position={[0, 0, 6]} intensity={1.0} color="#ffffff" />
         
         {/* 3D Elements */}
-        {!reducedMotion && <ParticleField />}
+        <ParticleField />
         <GlowingSphere />
         <StaticLogo />
         

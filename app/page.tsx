@@ -270,9 +270,9 @@ export default function Home() {
               <div className="flex flex-col gap-10 mt-10">
                 {/* time.mp4 */}
                 <div className="flex justify-center mb-6">
-                  <div className="relative px-10 py-5 rounded-2xl border-2 border-amber-400 bg-gradient-to-br from-amber-200 via-yellow-300 to-amber-500 shadow-[0_0_40px_rgba(251,191,36,0.8),0_0_80px_rgba(251,191,36,0.4)]">
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-amber-600/20 to-transparent"></div>
-                    <h3 className="relative text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-900 via-amber-800 to-yellow-900 tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] [text-shadow:_0_0_20px_rgb(251_191_36_/_50%)]" style={{ fontFamily: 'Georgia, serif' }}>
+                  <div className="relative px-10 py-5 rounded-2xl wood-plaque">
+                    <div className="wood-plaque-sheen"></div>
+                    <h3 className="relative text-4xl md:text-5xl font-bold golden-plaque-text tracking-wider" style={{ fontFamily: 'Georgia, serif' }}>
                       A Button Through Time
                     </h3>
                   </div>
@@ -321,9 +321,9 @@ export default function Home() {
                 <div className="grid grid-cols-1 gap-10">
                   {/* a.mp4 portrait */}
                   <div className="flex justify-center mb-6">
-                    <div className="relative px-10 py-5 rounded-2xl border-2 border-amber-400 bg-gradient-to-br from-amber-200 via-yellow-300 to-amber-500 shadow-[0_0_40px_rgba(251,191,36,0.8),0_0_80px_rgba(251,191,36,0.4)]">
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-amber-600/20 to-transparent"></div>
-                      <h3 className="relative text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-900 via-amber-800 to-yellow-900 tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] [text-shadow:_0_0_20px_rgb(251_191_36_/_50%)]" style={{ fontFamily: 'Georgia, serif' }}>
+                    <div className="relative px-10 py-5 rounded-2xl wood-plaque">
+                      <div className="wood-plaque-sheen"></div>
+                      <h3 className="relative text-4xl md:text-5xl font-bold golden-plaque-text tracking-wider" style={{ fontFamily: 'Georgia, serif' }}>
                         Unlocking Imagination
                       </h3>
                     </div>
@@ -370,9 +370,9 @@ export default function Home() {
 
                   {/* crazy1.mp4 portrait */}
                   <div className="flex justify-center mb-6">
-                    <div className="relative px-10 py-5 rounded-2xl border-2 border-amber-400 bg-gradient-to-br from-amber-200 via-yellow-300 to-amber-500 shadow-[0_0_40px_rgba(251,191,36,0.8),0_0_80px_rgba(251,191,36,0.4)]">
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-amber-600/20 to-transparent"></div>
-                      <h3 className="relative text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-900 via-amber-800 to-yellow-900 tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] [text-shadow:_0_0_20px_rgb(251_191_36_/_50%)]" style={{ fontFamily: 'Georgia, serif' }}>
+                    <div className="relative px-10 py-5 rounded-2xl wood-plaque">
+                      <div className="wood-plaque-sheen"></div>
+                      <h3 className="relative text-4xl md:text-5xl font-bold golden-plaque-text tracking-wider" style={{ fontFamily: 'Georgia, serif' }}>
                         Unbuttoned
                       </h3>
                     </div>
@@ -420,9 +420,9 @@ export default function Home() {
 
                 {/* feature.mp4 - wide bottom */}
                 <div className="flex justify-center mb-6">
-                  <div className="relative px-10 py-5 rounded-2xl border-2 border-amber-400 bg-gradient-to-br from-amber-200 via-yellow-300 to-amber-500 shadow-[0_0_40px_rgba(251,191,36,0.8),0_0_80px_rgba(251,191,36,0.4)]">
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-amber-600/20 to-transparent"></div>
-                    <h3 className="relative text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-amber-900 via-amber-800 to-yellow-900 tracking-wider drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] [text-shadow:_0_0_20px_rgb(251_191_36_/_50%)]" style={{ fontFamily: 'Georgia, serif' }}>
+                  <div className="relative px-10 py-5 rounded-2xl wood-plaque">
+                    <div className="wood-plaque-sheen"></div>
+                    <h3 className="relative text-4xl md:text-5xl font-bold golden-plaque-text tracking-wider" style={{ fontFamily: 'Georgia, serif' }}>
                       Threading The Atmosphere
                     </h3>
                   </div>
