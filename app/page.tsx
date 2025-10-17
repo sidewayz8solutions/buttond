@@ -103,7 +103,7 @@ export default function Home() {
     {
       name: "Company",
       description: "Brand and website design",
-      imageSrc: "/company.png"
+      imageSrc: "/merica.png"
     },
   ];
 
