@@ -96,9 +96,10 @@ export default function Home() {
       imageSrc: "/ass.png"
     },
     {
-      name: "Coming Soon 2",
+      name: "Captain Hook's Jingle Factory",
       description: "Brand and website design",
-      imageSrc: "/cap.png"
+      imageSrc: "/cap.png",
+      backVideoSrc: "/chook.mp4"
     },
     {
       name: "Company",
@@ -531,6 +532,7 @@ export default function Home() {
                   title={project.name}
                   description={project.description}
                   imageSrc={project.imageSrc}
+                  backVideoSrc={project.backVideoSrc}
                   index={index}
                 />
               ))}
