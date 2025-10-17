@@ -582,8 +582,13 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-purple-400/10">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-purple-200/90 mb-2 font-script text-2xl">Button&apos;d</p>
+        <div className="max-w-7xl mx-auto text-center space-y-3">
+          <p className="text-purple-200/90 font-script text-2xl">Button&apos;d</p>
+          <div className="flex items-center justify-center gap-6 text-sm">
+            <a href="/terms" className="text-purple-200/80 hover:text-white underline/20 hover:underline">Terms of Service</a>
+            <span className="text-purple-300/30">•</span>
+            <a href="/privacy" className="text-purple-200/80 hover:text-white underline/20 hover:underline">Privacy Policy</a>
+          </div>
           <p className="text-purple-200/70 text-sm">
             © 2025 Button&apos;d. All rights reserved.
           </p>

@@ -75,7 +75,7 @@ export default function GalleryCard3D({
       onMouseLeave={handleMouseLeave}
     >
       <motion.div
-        className="relative group cursor-pointer"
+        className="relative group cursor-pointer h-[420px] w-full"
         style={{
           rotateX: reducedMotion ? 0 : rotateX,
           rotateY: reducedMotion ? 0 : rotateY,
