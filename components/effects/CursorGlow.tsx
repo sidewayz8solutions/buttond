@@ -10,7 +10,7 @@ export default function CursorGlow() {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isVisible, setIsVisible] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const rafRef = useRef<number>();
+  const rafRef = useRef<number | null>(null);
   const targetRef = useRef({ x: -100, y: -100 });
   const currentRef = useRef({ x: -100, y: -100 });
 
