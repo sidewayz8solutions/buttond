@@ -486,11 +486,11 @@ export default function Home() {
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
         <section id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
-          {/* Background video: background2.mp4 */}
+          {/* Background video: background4.mp4 */}
           <video
             ref={galleryVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
-            src="/background3.mp4"
+            src="/background4.mp4"
             autoPlay
             muted={galleryMuted}
             loop
