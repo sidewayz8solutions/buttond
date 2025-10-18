@@ -78,12 +78,12 @@ export default function Home() {
   const projects = [
     {
       name: "Püper",
-      description: "Brand and website design",
+      description: "No more wondering if you will find a clean batroom in your travels. The yelp of public restroom is here. Püper allows the people to rate restrooms with our 5 toilet rating system. You can finally with peace of mind.",
       imageSrc: "/puper.png"
     },
     {
       name: "PageMint",
-      description: "Brand and website design",
+      description: "Are you in a hurry to get your new idea off the ground but dont want to spend the time on creating a functional landing page? Wait no more. Get a variety of mobile optimized landing pages that will jumpstart your next idea in minutes!",
       imageSrc: "/pagemint.png"
     },
     {
@@ -103,9 +103,10 @@ export default function Home() {
       backVideoSrc: "/chook.mp4"
     },
     {
-      name: "Company",
-      description: "Brand and website design",
-      imageSrc: "/merica.png"
+      name: "Political Strategist",
+      description: "We also craft campaigns. Our latest race was the New Orleans Mayoral race where we created the website and all the campaing marketing. Check out our work. scurlock2025.com",
+      imageSrc: "/merica.png",
+      backImageSrc: "/fandl.png"
     },
   ];
 
@@ -537,6 +538,7 @@ export default function Home() {
                   description={project.description}
                   imageSrc={project.imageSrc}
                   backVideoSrc={project.backVideoSrc}
+                  backImageSrc={project.backImageSrc}
                   index={index}
                 />
               ))}

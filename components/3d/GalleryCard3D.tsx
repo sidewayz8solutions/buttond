@@ -19,6 +19,7 @@ interface GalleryCard3DProps {
   description: string;
   imageSrc?: string;
   backVideoSrc?: string;
+  backImageSrc?: string;
   index: number;
 }
 
@@ -27,6 +28,7 @@ export default function GalleryCard3D({
   description,
   imageSrc,
   backVideoSrc,
+  backImageSrc,
   index
 }: GalleryCard3DProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -164,7 +166,16 @@ export default function GalleryCard3D({
           style={{ transform: 'rotateY(180deg)' }}
         >
           <div className="neo-card glass-card rounded-2xl w-full h-full overflow-hidden flex flex-col">
-            {backVideoSrc ? (
+            {backImageSrc ? (
+              <div className="relative h-64 bg-black/40">
+                <Image
+                  src={backImageSrc}
+                  alt={`${title} back`}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            ) : backVideoSrc ? (
               <div className="relative h-64 bg-black/40">
                 <video
                   ref={backVideoRef}
