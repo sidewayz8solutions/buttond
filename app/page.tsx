@@ -146,7 +146,7 @@ export default function Home() {
       <CursorGlow />
 
       {/* Neon fluid cursor */}
-      <NeonCursor />
+      <NeonCursor SPLAT_RADIUS={0.06} SPLAT_FORCE={2500} DENSITY_DISSIPATION={4.5} />
 
       {/* Navigation */}
       <motion.nav
@@ -490,7 +490,7 @@ export default function Home() {
           <video
             ref={galleryVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
-            src="/background2.mp4"
+            src="/background3.mp4"
             autoPlay
             muted={galleryMuted}
             loop
