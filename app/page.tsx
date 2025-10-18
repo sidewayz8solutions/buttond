@@ -83,7 +83,7 @@ export default function Home() {
     },
     {
       name: "PageMint",
-      description: "Are you in a hurry to get your new idea off the ground but dont want to spend the time on creating a functional landing page? Wait no more. Get a variety of mobile optimized landing pages that will jumpstart your next idea in minutes!",
+      description: "Are you in a hurry to get your new idea off the ground but don't want to spend time creating a functional landing page? Wait no more. Get a variety of mobile-optimized landing pages that will jump-start your next idea in minutes!",
       imageSrc: "/pagemint.png"
     },
     {
@@ -93,7 +93,7 @@ export default function Home() {
     },
     {
       name: "Smart ATS Resume",
-      description: "A Resume Builder with a specialized score card designed to beat the ATS everytime. We guarantee it! ",
+      description: "A resume builder with a specialized scorecard designed to beat the ATS every time. We guarantee it!",
       imageSrc: "/ass.png"
     },
     {
@@ -104,7 +104,7 @@ export default function Home() {
     },
     {
       name: "Political Strategist",
-      description: "We also craft campaigns. Our latest race was the New Orleans Mayoral race where we created the website and all the campaing marketing. Check out our work. scurlock2025.com",
+      description: "We also craft campaigns. Our latest race was the New Orleans mayoral race, where we created the website and all the campaign marketing. Check out our work at scurlock2025.com.",
       imageSrc: "/merica.png",
       backImageSrc: "/fandl.png"
     },
