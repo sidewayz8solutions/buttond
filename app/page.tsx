@@ -106,7 +106,9 @@ export default function Home() {
       name: "Political Strategist",
       description: "We also craft campaigns. Our latest race was the New Orleans mayoral race, where we created the website and all the campaign marketing. Check out our work at scurlock2025.com.",
       imageSrc: "/merica.png",
-      backImageSrc: "/fandl.png"
+      backImageSrc: "/fandl.png",
+      ctaUrl: "https://scurlock2025.com",
+      ctaLabel: "Visit scurlock2025.com"
     },
   ];
 
@@ -539,6 +541,8 @@ export default function Home() {
                   imageSrc={project.imageSrc}
                   backVideoSrc={project.backVideoSrc}
                   backImageSrc={project.backImageSrc}
+                  ctaUrl={project.ctaUrl}
+                  ctaLabel={project.ctaLabel}
                   index={index}
                 />
               ))}
