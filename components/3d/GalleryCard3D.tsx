@@ -20,6 +20,8 @@ interface GalleryCard3DProps {
   imageSrc?: string;
   backVideoSrc?: string;
   backImageSrc?: string;
+  ctaUrl?: string;
+  ctaLabel?: string;
   index: number;
 }
 
@@ -29,6 +31,8 @@ export default function GalleryCard3D({
   imageSrc,
   backVideoSrc,
   backImageSrc,
+  ctaUrl,
+  ctaLabel,
   index
 }: GalleryCard3DProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -189,6 +193,16 @@ export default function GalleryCard3D({
             <div className="p-6 text-center">
               <h3 className="text-xl font-bold text-white mb-3 neon-text-subtle">{title}</h3>
               <p className="text-purple-100/80 leading-relaxed mb-4 max-w-sm mx-auto">{description}</p>
+              {ctaUrl && (
+                <a
+                  href={ctaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-4 py-2 rounded-lg bg-purple-600/80 hover:bg-purple-500 text-white shadow-md shadow-purple-500/30 transition mb-3"
+                >
+                  {ctaLabel ?? 'Learn more'}
+                </a>
+              )}
               <div className="text-sm text-purple-300/60">Click to flip back</div>
             </div>
           </div>
