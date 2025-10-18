@@ -78,7 +78,7 @@ export default function Home() {
   const projects = [
     {
       name: "Püper",
-      description: "No more wondering if you will find a clean batroom in your travels. The yelp of public restroom is here. Püper allows the people to rate restrooms with our 5 toilet rating system. You can finally with peace of mind.",
+      description: "No more wondering if you will find a clean batroom in your travels. The yelp of public restroom is here. Püper allows the people to rate restrooms with our 5 toilet rating system. You can finally travel with peace of mind",
       imageSrc: "/puper.png"
     },
     {
