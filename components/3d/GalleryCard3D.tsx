@@ -133,7 +133,7 @@ export default function GalleryCard3D({
                   src={imageSrc}
                   alt={title}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                 />
               ) : (
                 <div className="text-6xl opacity-50">🎨</div>
@@ -172,14 +172,14 @@ export default function GalleryCard3D({
                   src={backImageSrc}
                   alt={`${title} back`}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             ) : backVideoSrc ? (
               <div className="relative h-96 bg-black/40">
                 <video
                   ref={backVideoRef}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-contain"
                   src={backVideoSrc}
                   playsInline
                   preload="auto"
