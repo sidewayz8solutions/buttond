@@ -88,7 +88,7 @@ export default function Home() {
     },
     {
       name: "Sidewayz 8 Solutions",
-      description: "Brand and website design",
+      description: "As the sister company to Button'd, both companies were created at the same time to serve two vital functions. Sidewayz 8 is a software development company focusing on functionality and optimizatiion. In a Sidewayz world, we all could use a Sidewayz solution...",
       imageSrc: "/s8.png"
     },
     {
