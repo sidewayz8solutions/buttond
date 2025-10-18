@@ -94,7 +94,8 @@ export default function Home() {
     {
       name: "Smart ATS Resume",
       description: "A resume builder with a specialized scorecard designed to beat the ATS every time. We guarantee it!",
-      imageSrc: "/ass.png"
+      imageSrc: "/ass.png",
+      backVideoSrc: "/ats.mp4"
     },
     {
       name: "Captain Hook's Jingle Factory",
