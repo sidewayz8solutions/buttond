@@ -98,7 +98,7 @@ export default function GalleryCard3D({
       onMouseLeave={handleMouseLeave}
     >
       <motion.div
-        className="relative group cursor-pointer h-[420px] w-full"
+        className="relative group cursor-pointer h-[560px] w-full"
         style={{
           rotateX: reducedMotion ? 0 : rotateX,
           rotateY: reducedMotion ? 0 : rotateY,
@@ -127,7 +127,7 @@ export default function GalleryCard3D({
             />
 
             {/* Image placeholder or actual image */}
-            <div className="relative h-64 bg-gradient-to-br from-purple-900/30 to-pink-900/30 flex items-center justify-center">
+            <div className="relative h-96 bg-gradient-to-br from-purple-900/30 to-pink-900/30 flex items-center justify-center">
               {imageSrc ? (
                 <Image
                   src={imageSrc}
@@ -167,7 +167,7 @@ export default function GalleryCard3D({
         >
           <div className="neo-card glass-card rounded-2xl w-full h-full overflow-hidden flex flex-col">
             {backImageSrc ? (
-              <div className="relative h-64 bg-black/40">
+              <div className="relative h-96 bg-black/40">
                 <Image
                   src={backImageSrc}
                   alt={`${title} back`}
@@ -176,7 +176,7 @@ export default function GalleryCard3D({
                 />
               </div>
             ) : backVideoSrc ? (
-              <div className="relative h-64 bg-black/40">
+              <div className="relative h-96 bg-black/40">
                 <video
                   ref={backVideoRef}
                   className="absolute inset-0 w-full h-full object-cover"
