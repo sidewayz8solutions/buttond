@@ -2,6 +2,7 @@
 
 import {
   Suspense,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -115,7 +116,10 @@ export default function Home() {
 
 
   const galleryVideoRef = useRef<HTMLVideoElement>(null);
+  const galleryObserverRef = useRef<IntersectionObserver | null>(null);
   const [galleryMuted, setGalleryMuted] = useState(true);
+  const [galleryHasPlayed, setGalleryHasPlayed] = useState(false);
+  const [galleryUserMuted, setGalleryUserMuted] = useState(false);
 
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
   const [aboutMuted, setAboutMuted] = useState(true);
@@ -132,6 +136,45 @@ export default function Home() {
 
 
   // Video click handlers
+  // Intersection observer for gallery video auto-play
+  useEffect(() => {
+    const video = galleryVideoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !galleryHasPlayed) {
+            // First time scrolling into view - play with volume
+            video.muted = false;
+            video.volume = 0.6;
+            video.play().catch(() => {});
+            setGalleryMuted(false);
+            setGalleryHasPlayed(true);
+
+            // After video ends first loop, mute it (unless user has unmuted)
+            const handleEnded = () => {
+              if (!galleryUserMuted) {
+                video.muted = true;
+                setGalleryMuted(true);
+              }
+              video.removeEventListener('ended', handleEnded);
+            };
+            video.addEventListener('ended', handleEnded);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(video);
+    galleryObserverRef.current = observer;
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [galleryHasPlayed, galleryUserMuted]);
+
   const handleVideoClick = (videoRef: React.RefObject<HTMLVideoElement | null>, playing: boolean, setPlaying: (playing: boolean) => void) => {
     if (videoRef.current) {
       if (playing) {
@@ -512,9 +555,12 @@ export default function Home() {
               onClick={() => {
                 const next = !galleryMuted;
                 setGalleryMuted(next);
+                setGalleryUserMuted(next);
                 if (galleryVideoRef.current) {
                   galleryVideoRef.current.muted = next;
-                  if (!next) galleryVideoRef.current.volume = 0.6;
+                  if (!next) {
+                    galleryVideoRef.current.volume = 0.6;
+                  }
                 }
               }}
               className="neo-button text-sm px-3 py-1.5 rounded-full text-purple-100 hover:text-white"

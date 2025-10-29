@@ -145,13 +145,16 @@ export default function GalleryCard3D({
             </div>
 
             {/* Content */}
-            <div className="p-6">
+            <div className="p-6 flex flex-col h-[calc(100%-24rem)]">
               <h3 className="text-xl font-bold text-white mb-2 neon-text-subtle">
                 {title}
               </h3>
-              <p className="text-purple-200/70 text-sm leading-relaxed">
+              <p className="text-purple-200/70 text-sm leading-relaxed mb-4">
                 {description}
               </p>
+              <div className="mt-auto text-center">
+                <p className="text-purple-300/80 text-sm font-medium">Click for more</p>
+              </div>
             </div>
 
             {/* 3D depth indicator */}
