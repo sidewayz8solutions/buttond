@@ -116,10 +116,12 @@ export default function Home() {
 
 
   const galleryVideoRef = useRef<HTMLVideoElement>(null);
+  const galleryAudioRef = useRef<HTMLAudioElement>(null);
   const galleryObserverRef = useRef<IntersectionObserver | null>(null);
   const [galleryMuted, setGalleryMuted] = useState(true);
   const [galleryHasPlayed, setGalleryHasPlayed] = useState(false);
   const [galleryUserMuted, setGalleryUserMuted] = useState(false);
+  const [galleryAudioPlayed, setGalleryAudioPlayed] = useState(false);
 
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
   const [aboutMuted, setAboutMuted] = useState(true);
@@ -139,29 +141,40 @@ export default function Home() {
   // Intersection observer for gallery video auto-play
   useEffect(() => {
     const video = galleryVideoRef.current;
-    if (!video) return;
+    const audio = galleryAudioRef.current;
+    if (!video || !audio) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !galleryHasPlayed) {
-            // First time scrolling into view - play with volume
-            video.muted = false;
-            video.volume = 0.6;
-            video.play().catch(() => {});
-            setGalleryMuted(false);
+            // First play the audio file
+            audio.volume = 0.6;
+            audio.play().catch(() => {});
+            setGalleryAudioPlayed(true);
             setGalleryHasPlayed(true);
 
-            // After video ends first loop, mute it (unless user manually toggled)
-            const handleEnded = () => {
-              // Only auto-mute if user hasn't manually unmuted
-              if (galleryUserMuted === false) {
-                video.muted = true;
-                setGalleryMuted(true);
-              }
-              video.removeEventListener('ended', handleEnded);
+            // When audio ends, start the video with volume
+            const handleAudioEnded = () => {
+              video.muted = false;
+              video.volume = 0.6;
+              video.play().catch(() => {});
+              setGalleryMuted(false);
+
+              // After video ends first loop, mute it (unless user manually toggled)
+              const handleVideoEnded = () => {
+                // Only auto-mute if user hasn't manually unmuted
+                if (galleryUserMuted === false) {
+                  video.muted = true;
+                  setGalleryMuted(true);
+                }
+                video.removeEventListener('ended', handleVideoEnded);
+              };
+              video.addEventListener('ended', handleVideoEnded);
+              
+              audio.removeEventListener('ended', handleAudioEnded);
             };
-            video.addEventListener('ended', handleEnded);
+            audio.addEventListener('ended', handleAudioEnded);
           }
         });
       },
@@ -534,6 +547,12 @@ export default function Home() {
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
         <section id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
+          {/* Hidden audio element for intro */}
+          <audio
+            ref={galleryAudioRef}
+            src="/1029.mp3"
+            preload="auto"
+          />
           {/* Background video: background4.mp4 */}
           <video
             ref={galleryVideoRef}
