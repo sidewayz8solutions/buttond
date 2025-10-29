@@ -152,9 +152,10 @@ export default function Home() {
             setGalleryMuted(false);
             setGalleryHasPlayed(true);
 
-            // After video ends first loop, mute it (unless user has unmuted)
+            // After video ends first loop, mute it (unless user manually toggled)
             const handleEnded = () => {
-              if (!galleryUserMuted) {
+              // Only auto-mute if user hasn't manually unmuted
+              if (galleryUserMuted === false) {
                 video.muted = true;
                 setGalleryMuted(true);
               }
@@ -538,7 +539,6 @@ export default function Home() {
             ref={galleryVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
             src="/background4.mp4"
-            autoPlay
             muted={galleryMuted}
             loop
             playsInline
