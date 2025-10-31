@@ -116,12 +116,10 @@ export default function Home() {
 
 
   const galleryVideoRef = useRef<HTMLVideoElement>(null);
-  const galleryAudioRef = useRef<HTMLAudioElement>(null);
   const galleryObserverRef = useRef<IntersectionObserver | null>(null);
   const [galleryMuted, setGalleryMuted] = useState(true);
   const [galleryHasPlayed, setGalleryHasPlayed] = useState(false);
   const [galleryUserMuted, setGalleryUserMuted] = useState(false);
-  const [galleryAudioPlayed, setGalleryAudioPlayed] = useState(false);
 
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
   const [aboutMuted, setAboutMuted] = useState(true);
@@ -141,40 +139,47 @@ export default function Home() {
   // Intersection observer for gallery video auto-play
   useEffect(() => {
     const video = galleryVideoRef.current;
-    const audio = galleryAudioRef.current;
-    if (!video || !audio) return;
+    if (!video) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !galleryHasPlayed) {
-            // First play the audio file
-            audio.volume = 0.6;
-            audio.play().catch(() => {});
-            setGalleryAudioPlayed(true);
             setGalleryHasPlayed(true);
 
-            // When audio ends, start the video with volume
-            const handleAudioEnded = () => {
+            // Start with intro video (bid.mp4) with audio once
+            try {
+              if (!video.src.includes('/bid.mp4')) {
+                video.src = '/bid.mp4';
+              }
+              video.loop = false;
               video.muted = false;
               video.volume = 0.6;
-              video.play().catch(() => {});
               setGalleryMuted(false);
+              video.play().catch(() => {
+                // Fallback: autoplay with muted if browser blocks audio
+                video.muted = true;
+                setGalleryMuted(true);
+                video.play().catch(() => {});
+              });
+            } catch {}
 
-              // After video ends first loop, mute it (unless user manually toggled)
-              const handleVideoEnded = () => {
-                // Only auto-mute if user hasn't manually unmuted
-                if (galleryUserMuted === false) {
-                  video.muted = true;
-                  setGalleryMuted(true);
-                }
-                video.removeEventListener('ended', handleVideoEnded);
-              };
-              video.addEventListener('ended', handleVideoEnded);
-              
-              audio.removeEventListener('ended', handleAudioEnded);
+            const handleIntroEnded = () => {
+              try {
+                video.src = '/background4.mp4';
+                video.loop = true;
+                // Respect user toggle; default to muted after intro
+                const shouldMute = galleryUserMuted !== false;
+                video.muted = shouldMute;
+                setGalleryMuted(shouldMute);
+                if (!shouldMute) video.volume = 0.6;
+                video.currentTime = 0;
+                video.play().catch(() => {});
+              } catch {}
+              video.removeEventListener('ended', handleIntroEnded);
             };
-            audio.addEventListener('ended', handleAudioEnded);
+
+            video.addEventListener('ended', handleIntroEnded);
           }
         });
       },
@@ -207,7 +212,7 @@ export default function Home() {
       <CursorGlow />
 
       {/* Neon fluid cursor */}
-      <NeonCursor SPLAT_RADIUS={0.06} SPLAT_FORCE={2500} DENSITY_DISSIPATION={4.5} />
+      <NeonCursor SPLAT_RADIUS={0.054} SPLAT_FORCE={2250} DENSITY_DISSIPATION={4.95} />
 
       {/* Navigation */}
       <motion.nav
@@ -547,19 +552,12 @@ export default function Home() {
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
         <section id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
-          {/* Hidden audio element for intro */}
-          <audio
-            ref={galleryAudioRef}
-            src="/1029.mp3"
-            preload="auto"
-          />
-          {/* Background video: background4.mp4 */}
+          {/* Background video: starts with bid.mp4, transitions in code */}
           <video
             ref={galleryVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
-            src="/background4.mp4"
+            src="/bid.mp4"
             muted={galleryMuted}
-            loop
             playsInline
             preload="metadata"
           />
