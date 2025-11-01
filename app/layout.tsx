@@ -1,4 +1,4 @@
-import './globals.css';
+import './globals.css'; // Ensure this file exists
 
 import type { Metadata } from 'next';
 import {
