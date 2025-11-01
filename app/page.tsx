@@ -119,6 +119,25 @@ export default function Home() {
   const [galleryMuted, setGalleryMuted] = useState(true);
   // Gallery background: abcd.mp4 only, no fallback
   const galleryBgSrc = "/abcd.mp4";
+  useEffect(() => {
+    const v = galleryVideoRef.current;
+    if (!v) return;
+    v.muted = galleryMuted;
+    try {
+      v.load();
+    } catch {}
+    const tryPlay = () => {
+      v.play().catch(() => {
+        // Autoplay may be blocked on some devices; ignore.
+      });
+    };
+    if (v.readyState >= 2) tryPlay();
+    else {
+      const onCanPlay = () => tryPlay();
+      v.addEventListener('canplay', onCanPlay, { once: true });
+      return () => v.removeEventListener('canplay', onCanPlay);
+    }
+  }, [galleryBgSrc, galleryMuted]);
 
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
   const [aboutMuted, setAboutMuted] = useState(true);
@@ -503,6 +522,11 @@ export default function Home() {
             loop
             playsInline
             preload="metadata"
+            onError={() => {
+              if (process.env.NODE_ENV !== 'production') {
+                console.error('Failed to load gallery background video:', galleryBgSrc);
+              }
+            }}
           />
           {/* Dark gradient overlay for legibility */}
           <div className="absolute inset-0 pointer-events-none services-video-overlay" />
