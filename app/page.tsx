@@ -166,8 +166,8 @@ export default function Home() {
 
             const handleIntroEnded = () => {
               try {
-                video.src = '/background4.mp4';
-                video.loop = true;
+                video.src = '/aff.mp4';
+                video.loop = false;
                 // Respect user toggle; default to muted after intro
                 const shouldMute = galleryUserMuted !== false;
                 video.muted = shouldMute;
@@ -175,6 +175,18 @@ export default function Home() {
                 if (!shouldMute) video.volume = 0.6;
                 video.currentTime = 0;
                 video.play().catch(() => {});
+
+                // After aff.mp4 ends, transition to background4.mp4
+                const handleAffEnded = () => {
+                  try {
+                    video.src = '/background4.mp4';
+                    video.loop = true;
+                    video.currentTime = 0;
+                    video.play().catch(() => {});
+                  } catch {}
+                  video.removeEventListener('ended', handleAffEnded);
+                };
+                video.addEventListener('ended', handleAffEnded);
               } catch {}
               video.removeEventListener('ended', handleIntroEnded);
             };
