@@ -116,8 +116,8 @@ export default function Home() {
 
   const galleryVideoRef = useRef<HTMLVideoElement>(null);
   const [galleryMuted, setGalleryMuted] = useState(true);
-  // Gallery background playlist: try aff.mp4 first, then fallback
-  const galleryBackgrounds = ["/aff.mp4", "/background4.mp4"] as const;
+  // Gallery background playlist: try abcd.mp4 first, then fallback
+  const galleryBackgrounds = ["/abcd.mp4", "/background4.mp4"] as const;
   const [galleryBgIndex, setGalleryBgIndex] = useState(0);
 
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
@@ -493,7 +493,7 @@ export default function Home() {
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
         <section id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
-          {/* Background video: prefers aff.mp4, falls back to background4.mp4 if missing */}
+          {/* Background video: prefers abcd.mp4, falls back to background4.mp4 if missing */}
           <video
             ref={galleryVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
@@ -504,7 +504,7 @@ export default function Home() {
             playsInline
             preload="metadata"
             onError={() => {
-              // If aff.mp4 doesn't exist, gracefully fallback to the next background
+              // If abcd.mp4 doesn't exist, gracefully fallback to the next background
               if (galleryBgIndex < galleryBackgrounds.length - 1) {
                 setGalleryBgIndex(galleryBgIndex + 1);
               }
