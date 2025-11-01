@@ -4,6 +4,7 @@ import {
   Suspense,
   useRef,
   useState,
+  useEffect,
 } from 'react';
 
 import { motion } from 'framer-motion';
@@ -116,9 +117,8 @@ export default function Home() {
 
   const galleryVideoRef = useRef<HTMLVideoElement>(null);
   const [galleryMuted, setGalleryMuted] = useState(true);
-  // Gallery background playlist: try abcd.mp4 first, then fallback
-  const galleryBackgrounds = ["/abcd.mp4", "/background4.mp4"] as const;
-  const [galleryBgIndex, setGalleryBgIndex] = useState(0);
+  // Gallery background: abcd.mp4 only, no fallback
+  const galleryBgSrc = "/abcd.mp4";
 
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
   const [aboutMuted, setAboutMuted] = useState(true);
@@ -493,22 +493,16 @@ export default function Home() {
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
         <section id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
-          {/* Background video: prefers abcd.mp4, falls back to background4.mp4 if missing */}
+          {/* Background video: abcd.mp4 only, no fallback */}
           <video
             ref={galleryVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
-            src={galleryBackgrounds[galleryBgIndex]}
+            src={galleryBgSrc}
             autoPlay
             muted={galleryMuted}
             loop
             playsInline
             preload="metadata"
-            onError={() => {
-              // If abcd.mp4 doesn't exist, gracefully fallback to the next background
-              if (galleryBgIndex < galleryBackgrounds.length - 1) {
-                setGalleryBgIndex(galleryBgIndex + 1);
-              }
-            }}
           />
           {/* Dark gradient overlay for legibility */}
           <div className="absolute inset-0 pointer-events-none services-video-overlay" />
