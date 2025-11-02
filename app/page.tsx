@@ -95,7 +95,7 @@ export default function Home() {
     {
       name: "Smart ATS Resume",
       description: "A resume builder with a specialized scorecard designed to beat the ATS every time. We guarantee it!",
-      imageSrc: "/ass.png",
+      imageSrc: "/ats.png",
       backVideoSrc: "/ats.mp4"
     },
     {
@@ -118,7 +118,7 @@ export default function Home() {
   const galleryVideoRef = useRef<HTMLVideoElement>(null);
   const [galleryMuted, setGalleryMuted] = useState(true);
   // Gallery background: abcd.mp4 only, no fallback
-  const galleryBgSrc = "/abcd.mp4";
+  const galleryBgSrc = "/abcd1.mp4";
   useEffect(() => {
     const v = galleryVideoRef.current;
     if (!v) return;
@@ -227,7 +227,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <PersonalizationEngine />
         </div>
-      </ParallaxLayers>n
+      </ParallaxLayers>
 
       {/* Services Section with 3D Cards */}
       <ParallaxLayers>
@@ -434,7 +434,7 @@ export default function Home() {
                       </div>
                       <video
                         ref={aboutVideoRef4}
-                        className="absolute inset-0 w-full h/full object-cover cursor-pointer"
+                        className="absolute inset-0 w-full h-full object-cover cursor-pointer"
                         src="/crazy2.mp4"
                         muted={aboutMuted4}
                         loop
@@ -512,7 +512,7 @@ export default function Home() {
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
         <section id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
-          {/* Background video: abcd.mp4 only, no fallback */}
+          {/* abcd1.mp4 only, no fallback */}
           <video
             ref={galleryVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
