@@ -117,8 +117,8 @@ export default function Home() {
 
   const galleryVideoRef = useRef<HTMLVideoElement>(null);
   const [galleryMuted, setGalleryMuted] = useState(true);
-  // Gallery background: abcd.mp4 only, no fallback
-  const galleryBgSrc = "/abcd1.mp4";
+  // Gallery background: finalbutton.mp4 only, no fallback
+  const galleryBgSrc = "/finalbutton.mp4";
   useEffect(() => {
     const v = galleryVideoRef.current;
     if (!v) return;
