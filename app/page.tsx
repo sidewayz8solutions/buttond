@@ -95,7 +95,7 @@ export default function Home() {
     {
       name: "Smart ATS Resume",
       description: "A resume builder with a specialized scorecard designed to beat the ATS every time. We guarantee it!",
-      imageSrc: "/ats.png",
+      imageSrc: "/ass.png",
       backVideoSrc: "/ats.mp4"
     },
     {
@@ -533,11 +533,11 @@ export default function Home() {
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
         <section ref={gallerySectionRef} id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
-          {/* Background video: aff.MP4 */}
+          {/* Background video: finalbutton.mp4 */}
           <video
             ref={galleryVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
-            src="/aff.MP4"
+            src="/finalbutton.mp4"
             autoPlay
             muted={galleryMuted}
             loop
