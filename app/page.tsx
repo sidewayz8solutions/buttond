@@ -2,6 +2,7 @@
 
 import {
   Suspense,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -115,7 +116,12 @@ export default function Home() {
 
 
   const galleryVideoRef = useRef<HTMLVideoElement>(null);
+  const gallerySectionRef = useRef<HTMLElement>(null);
   const [galleryMuted, setGalleryMuted] = useState(true);
+
+  const contactVideoRef = useRef<HTMLVideoElement>(null);
+  const contactSectionRef = useRef<HTMLElement>(null);
+  const [contactMuted, setContactMuted] = useState(true);
 
   const aboutVideoRef = useRef<HTMLVideoElement>(null);
   const [aboutMuted, setAboutMuted] = useState(true);
@@ -130,6 +136,43 @@ export default function Home() {
   const [aboutMuted4, setAboutMuted4] = useState(true);
   const [aboutPlaying4, setAboutPlaying4] = useState(false);
 
+  // Ensure gallery video plays when section is scrolled into view
+  useEffect(() => {
+    if (!gallerySectionRef.current || !galleryVideoRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && galleryVideoRef.current) {
+            galleryVideoRef.current.play().catch(() => {});
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(gallerySectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Ensure contact video plays when section is scrolled into view
+  useEffect(() => {
+    if (!contactSectionRef.current || !contactVideoRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && contactVideoRef.current) {
+            contactVideoRef.current.play().catch(() => {});
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(contactSectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   // Video click handlers
   const handleVideoClick = (videoRef: React.RefObject<HTMLVideoElement | null>, playing: boolean, setPlaying: (playing: boolean) => void) => {
@@ -489,12 +532,12 @@ export default function Home() {
 
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
-        <section id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
-          {/* Background video: background4.mp4 */}
+        <section ref={gallerySectionRef} id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
+          {/* Background video: aff.MP4 */}
           <video
             ref={galleryVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
-            src="/background4.mp4"
+            src="/aff.MP4"
             autoPlay
             muted={galleryMuted}
             loop
@@ -554,8 +597,41 @@ export default function Home() {
 
       {/* Contact Section */}
       <ParallaxLayers>
-        <section id="contact" className="py-32 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
+        <section ref={contactSectionRef} id="contact" className="relative overflow-hidden py-32 px-4 sm:px-6 lg:px-8">
+          {/* Background video: finalbutton.mp4 */}
+          <video
+            ref={contactVideoRef}
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
+            src="/finalbutton.mp4"
+            autoPlay
+            muted={contactMuted}
+            loop
+            playsInline
+            preload="metadata"
+          />
+          {/* Dark gradient overlay for legibility */}
+          <div className="absolute inset-0 pointer-events-none services-video-overlay" />
+
+          {/* Audio toggle */}
+          <div className="absolute z-20 top-4 right-4">
+            <button
+              type="button"
+              aria-label={contactMuted ? 'Unmute background video' : 'Mute background video'}
+              onClick={() => {
+                const next = !contactMuted;
+                setContactMuted(next);
+                if (contactVideoRef.current) {
+                  contactVideoRef.current.muted = next;
+                  if (!next) contactVideoRef.current.volume = 0.6;
+                }
+              }}
+              className="neo-button text-sm px-3 py-1.5 rounded-full text-purple-100 hover:text-white"
+            >
+              {contactMuted ? 'Sound Off 🔇' : 'Sound On 🔊'}
+            </button>
+          </div>
+
+          <div className="relative z-10 max-w-4xl mx-auto text-center">
             <AnimatedSection>
               <h2 className="text-5xl md:text-6xl font-bold mb-8 neon-text">
                 Ready to Revolutionize Your Brand?
