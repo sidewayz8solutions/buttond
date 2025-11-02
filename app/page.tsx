@@ -356,7 +356,7 @@ export default function Home() {
                     <video
                       ref={aboutVideoRef}
                       className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-                      src="/time.mp4"
+                      src="/btt.MOV"
                       muted={aboutMuted}
                       loop
                       playsInline
@@ -407,7 +407,7 @@ export default function Home() {
                       <video
                         ref={aboutVideoRef2}
                         className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-                        src="/wonka.mp4"
+                        src="/wonka.MOV"
                         muted={aboutMuted2}
                         loop
                         playsInline
@@ -456,7 +456,7 @@ export default function Home() {
                       <video
                         ref={aboutVideoRef4}
                         className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-                        src="/crazy2.mp4"
+                        src="/crazy.MOV"
                         muted={aboutMuted4}
                         loop
                         playsInline
@@ -506,7 +506,7 @@ export default function Home() {
                     <video
                       ref={aboutVideoRef3}
                       className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-                      src="/feature.mp4"
+                      src="/feature.MOV"
                       muted={aboutMuted3}
                       loop
                       playsInline

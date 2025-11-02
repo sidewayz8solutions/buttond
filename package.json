@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@genkit-ai/mcp": "^1.22.0",
+    "@playwright/test": "^1.56.1",
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.4.0",
     "framer-motion": "^12.23.24",
