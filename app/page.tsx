@@ -117,8 +117,8 @@ export default function Home() {
 
   const galleryVideoRef = useRef<HTMLVideoElement>(null);
   const [galleryMuted, setGalleryMuted] = useState(true);
-  // Gallery background: abcd1.mp4 only, no fallback
-  const galleryBgSrc = "/abcd1.mp4";
+  // Gallery background: abcd.mp4 only, no fallback
+  const galleryBgSrc = "/abcd.mp4";
   useEffect(() => {
     const v = galleryVideoRef.current;
     if (!v) return;
@@ -512,10 +512,11 @@ export default function Home() {
       {/* Gallery Section with 3D Cards */}
       <ParallaxLayers>
         <section id="gallery" className="relative overflow-hidden py-40 px-4 sm:px-6 lg:px-8">
-          {/* Background video: abcd1.mp4 only, no fallback */}
+          {/* Background video: abcd.mp4 only, no fallback */}
           <video
             ref={galleryVideoRef}
             className="absolute inset-0 w-full h-full object-cover object-center opacity-50"
+            key={galleryBgSrc}
             src={galleryBgSrc}
             autoPlay
             muted={galleryMuted}
